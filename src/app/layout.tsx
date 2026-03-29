@@ -4,6 +4,8 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { ThemeProvider } from "@/components/theme-provider/theme-provider";
+import { ModeToggle } from "@/components/theme-provider/theme-mode-toggle";
 
 //TODO change name to be dynamic based on the project name
 export const metadata: Metadata = {
@@ -23,7 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ModeToggle />
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
