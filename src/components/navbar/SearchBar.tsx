@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 
 const SearchBar = () => {
   return (
-    <div className="mx-6 hidden max-w-sm flex-1 md:flex">
+    <div className="mx-6 max-w-sm flex-1 md:flex">
       <div className="relative w-full">
         <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2 transform" />
         <Input
