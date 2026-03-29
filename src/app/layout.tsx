@@ -6,6 +6,7 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 import { ModeToggle } from "@/components/theme-provider/theme-mode-toggle";
+import Navbar from "@/components/navbar/Navbar";
 
 //TODO change name to be dynamic based on the project name
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           <ModeToggle />
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeProvider>
