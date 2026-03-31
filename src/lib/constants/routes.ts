@@ -11,3 +11,4 @@ export const ROUTES = {
   ACCOUNT: "/account",
   ORDERS: "/orders",
 };
+
