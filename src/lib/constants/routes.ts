@@ -7,4 +7,7 @@ export const ROUTES = {
   CART: "/cart",
   LOGIN: "/login",
   REGISTER: "/register",
+  SETTINGS: "/settings",
+  ACCOUNT: "/account",
+  ORDERS: "/orders",
 };

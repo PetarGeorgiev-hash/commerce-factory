@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
+import Link from "next/link";
+import { ROUTES } from "@/lib/constants/routes";
 
 const UserDropdown = () => {
   return (
@@ -17,14 +19,15 @@ const UserDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem className="cursor-pointer">Sign In</DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          Create Account
+          <Link href={ROUTES.ABOUT}>Account</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          My Orders
+          <Link href={ROUTES.ORDERS}>Orders</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          <Link href={ROUTES.SETTINGS}>Settings</Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
