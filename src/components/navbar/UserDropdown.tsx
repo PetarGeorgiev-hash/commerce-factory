@@ -23,7 +23,7 @@ const UserDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem className="cursor-pointer">
-          <Link href={ROUTES.ABOUT}>Account</Link>
+          <Link href={ROUTES.ACCOUNT}>Account</Link>
         <DropdownMenuItem className="cursor-pointer">Sign In</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => signIn("google", { callbackUrl: "/" })}
