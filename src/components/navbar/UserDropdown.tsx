@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
-import { UserMenu } from "./UserMenu";
 
 const UserDropdown = () => {
   return (
@@ -30,7 +29,6 @@ const UserDropdown = () => {
           <Link href={ROUTES.SETTINGS}>Settings</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
-      <UserMenu />
     </DropdownMenu>
   );
 };
