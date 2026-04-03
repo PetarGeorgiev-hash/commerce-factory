@@ -12,7 +12,6 @@ import { ROUTES } from "@/lib/constants/routes";
 import { signIn } from "next-auth/react";
 import { UserMenu } from "./UserMenu";
 
-
 const UserDropdown = () => {
   return (
     <DropdownMenu>
@@ -22,8 +21,6 @@ const UserDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem className="cursor-pointer">
-          <Link href={ROUTES.ACCOUNT}>Account</Link>
         <DropdownMenuItem className="cursor-pointer">Sign In</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => signIn("google", { callbackUrl: "/" })}

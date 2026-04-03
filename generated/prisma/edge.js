@@ -168,7 +168,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/petergeorgiev/Documents/dev_projects/commerce-factory/generated/prisma",
+      "value": "/Users/boyankoichev/Desktop/MyCodeProjects/commerce-factory/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +182,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/petergeorgiev/Documents/dev_projects/commerce-factory/prisma/schema.prisma",
+    "sourceFilePath": "/Users/boyankoichev/Desktop/MyCodeProjects/commerce-factory/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -196,6 +196,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
