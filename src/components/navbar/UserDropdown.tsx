@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
+import { signIn } from "next-auth/react";
+import { UserMenu } from "./UserMenu";
+
 
 const UserDropdown = () => {
   return (
@@ -21,6 +24,12 @@ const UserDropdown = () => {
       <DropdownMenuContent align="end">
         <DropdownMenuItem className="cursor-pointer">
           <Link href={ROUTES.ABOUT}>Account</Link>
+        <DropdownMenuItem className="cursor-pointer">Sign In</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="cursor-pointer"
+        >
+          Sign In with Google
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
           <Link href={ROUTES.ORDERS}>Orders</Link>
@@ -29,6 +38,7 @@ const UserDropdown = () => {
           <Link href={ROUTES.SETTINGS}>Settings</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
+      <UserMenu />
     </DropdownMenu>
   );
 };
