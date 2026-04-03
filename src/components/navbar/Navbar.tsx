@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import PageLogoComponent from "./PageLogoComponent";
 import PageNavigation from "./PageNavigation";
