@@ -1,35 +1,36 @@
 import React from "react";
 import Link from "next/link";
+import { ROUTES } from "@/lib/constants/routes";
 
 const PageNavigation = () => {
   return (
     <nav className="hidden items-center space-x-6 md:flex">
       <Link
-        href="/"
+        href={ROUTES.HOME}
         className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
       >
         Home
       </Link>
       <Link
-        href="/shop"
+        href={ROUTES.SHOP}
         className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
       >
         Shop
       </Link>
       <Link
-        href="/categories"
+        href={ROUTES.CATEGORIES}
         className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
       >
         Categories
       </Link>
       <Link
-        href="/about"
+        href={ROUTES.ABOUT}
         className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
       >
         About
       </Link>
       <Link
-        href="/contact"
+        href={ROUTES.CONTACT}
         className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
       >
         Contact

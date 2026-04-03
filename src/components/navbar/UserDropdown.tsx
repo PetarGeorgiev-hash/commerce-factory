@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
-import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { ROUTES } from "@/lib/constants/routes";
 import { UserMenu } from "./UserMenu";
-
 
 const UserDropdown = () => {
   return (
@@ -20,17 +20,15 @@ const UserDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem className="cursor-pointer">Sign In</DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="cursor-pointer"
-        >
-          Sign In with Google
+        <DropdownMenuItem className="cursor-pointer">
+          <Link href={ROUTES.ACCOUNT}>Account</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          My Orders
+          <Link href={ROUTES.ORDERS}>Orders</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
+          <Link href={ROUTES.SETTINGS}>Settings</Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
       <UserMenu />
     </DropdownMenu>
