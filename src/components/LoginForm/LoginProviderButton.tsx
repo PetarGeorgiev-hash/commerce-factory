@@ -2,9 +2,8 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-// import LoadingText from "@/components/LoadingText";
 import { signIn } from "next-auth/react";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 import { ROUTES } from "@/lib/constants/routes";
 import LoadingText from "../LoadingText";
 
@@ -26,12 +25,12 @@ const LoginProviderButton = ({
       });
 
       if (result?.error) {
-        // toast.error("Login failed");
+        toast.error("Login failed");
       }
     } catch (error) {
-    //   toast.error("Login failed", {
-    //     description: (error as Error).message,
-    //   });
+      toast.error("Login failed", {
+        description: (error as Error).message,
+      });
     } finally {
       setIsLoading(false);
     }
