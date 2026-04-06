@@ -1,9 +1,34 @@
-import React from 'react'
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
+import { ROUTES } from "@/lib/constants/routes";
+import RegisterForm from "@/components/RegisterForm/RegisterForm";
 
-const page = () => {
+export default function RegisterPage() {
   return (
-    <div>page</div>
-  )
+    <Card className="border-0 shadow-none">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardDescription>
+          Enter your details below to create your account
+        </CardDescription>
+      </CardHeader>
+      <RegisterForm />
+      <CardFooter>
+        <p className="text-muted-foreground w-full text-center text-sm">
+          <Link
+            href={ROUTES.LOGIN}
+            className="hover:text-primary underline underline-offset-4"
+          >
+            Already have an account? Sign In
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
+  );
 }
-
-export default page
