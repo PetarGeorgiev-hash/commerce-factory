@@ -21,14 +21,14 @@ export default async function AuthLayout({
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-2xl font-bold tracking-tight text-white">
               <Link href={ROUTES.HOME} className="flex items-center gap-2">
-                <span>Wealth</span>
+                <span>Shop</span>
                 <span className="text-[hsl(118,35%,19%)] dark:text-gray-800">
-                  Sync
+                  Name
                 </span>
               </Link>
             </div>
             <p className="bold mt-2 text-center text-xl text-emerald-100 shadow-2xl">
-              The calculator for your financial future.
+                Welcome back! Please enter your details to sign in to your account.
             </p>
           </div>
 
@@ -39,8 +39,7 @@ export default async function AuthLayout({
           <div className="mt-10 text-center text-white">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;Take charge of your financial future with Wealth Sync -
-                where smart money management meets simplicity.&rdquo;
+                &ldquo;Shop Quote&rdquo;
               </p>
             </blockquote>
           </div>
