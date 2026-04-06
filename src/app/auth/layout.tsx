@@ -17,7 +17,7 @@ export default async function AuthLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex flex-1">
-        <div className="flex min-h-screen flex-1 flex-col justify-center bg-gradient-to-b from-[#66e37d] to-[#1f4923] px-6 py-12 lg:px-8 dark:bg-gradient-to-b dark:from-[#409e55] dark:to-[#000f01]">
+        <div className="flex min-h-screen flex-1 flex-col justify-center bg-gradient-to-b from-[#a1c8e8] to-[#6dade1] px-6 py-12 lg:px-8 dark:bg-gradient-to-b dark:from-[#1f2e3a] dark:to-[#314d63]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-2xl font-bold tracking-tight text-white">
               <Link href={ROUTES.HOME} className="flex items-center gap-2">
