@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-// import { Routes } from "@/lib/constants/routes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CardContent } from "@/components/ui/card";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/constants/routes";
 
@@ -31,16 +30,16 @@ export default function LoginForm() {
       if (result?.error) {
         setEmail("");
         setPassword("");
-        //TODO implement toast lib and error handling
-        // toast.error("Invalid credentials");
+        //TODO: test toast error message
+        toast.error("Invalid credentials");
       } else if (result?.ok) {
         router.push(ROUTES.HOME);
-        // toast.success("Logged in successfully");
+        toast.success("Logged in successfully");
       }
     } catch (error) {
-    //   toast.error("Failed to sign in", {
-    //     description: (error as Error).message,
-    //   });
+      toast.error("Failed to sign in", {
+        description: (error as Error).message,
+      });
     } finally {
       setIsLoading(false);
     }
