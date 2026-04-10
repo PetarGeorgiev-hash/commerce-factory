@@ -18,6 +18,7 @@ export default function AdminPage() {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [price, setPrice] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
 
   const createPost = api.post.create.useMutation({
     onSuccess: () => {
@@ -29,22 +30,23 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    if (status === "loading") return; 
-    if (!session || session.user.role !== "ADMIN") {
-      router.push(ROUTES.HOME);
-    }
+    if (status === "loading") return;
+    //TODO add this when we have roles implemented
+    // if (!session || session.user.role !== "ADMIN") {
+    //   router.push(ROUTES.HOME);
+    // }
   }, [session, status, router]);
 
   if (status === "loading") return <div>Loading...</div>;
-  if (!session || session.user.role !== "ADMIN") return null; // Prevent render
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createPost.mutate({
-      title,
-      description: description || undefined,
-      price: price ? parseFloat(price) : undefined,
-    });
+    // createPost.mutate({
+    //   title,
+    //   description: description || undefined,
+    //   price: price ? parseFloat(price) : undefined,
+    //   image: image ? URL.createObjectURL(image) : undefined,
+    // });
   };
 
   return (
@@ -62,6 +64,15 @@ export default function AdminPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
+              />
+            </div>
+            <div>
+              <Label htmlFor="image">Image</Label>
+              <Input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files?.[0] ?? null)}
               />
             </div>
             <div>
