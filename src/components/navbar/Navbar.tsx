@@ -30,7 +30,6 @@ const Navbar = () => {
         <div className="flex items-center space-x-3">
           <ModeToggle />
           <ShopingCartButton />
-          {/* TODO only show UserDropdown if we have a user, otherwise show sign in button */}
           {isAuthenticated ? (
             <UserDropdown />
           ) : (
