@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { ROUTES } from "@/lib/constants/routes";
+import Image from "next/image";
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
@@ -74,6 +75,15 @@ export default function AdminPage() {
                 accept="image/*"
                 onChange={(e) => setImage(e.target.files?.[0] ?? null)}
               />
+              {image && (
+                <div className="mt-4">
+                  <Image
+                    src={URL.createObjectURL(image)}
+                    alt="Preview"
+                    className="max-w-xs rounded-lg border border-gray-300"
+                  />
+                </div>
+              )}
             </div>
             <div>
               <Label htmlFor="description">Description</Label>
