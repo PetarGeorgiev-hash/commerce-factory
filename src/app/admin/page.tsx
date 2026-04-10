@@ -10,10 +10,6 @@ import AdminForm from "@/components/Admin/AdminFormBoard/AdminForm";
 export default function AdminPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
 
 
   useEffect(() => {
