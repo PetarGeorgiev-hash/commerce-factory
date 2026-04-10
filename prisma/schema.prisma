@@ -53,6 +53,7 @@ model Post {
   title       String
   description String?
   price       Float?
+  imageUrl    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id])

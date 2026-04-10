@@ -3,9 +3,9 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useState } from "react";
 import { ROUTES } from "@/lib/constants/routes";
 import AdminForm from "@/components/Admin/AdminFormBoard/AdminForm";
+import AdminPosts from "@/components/Admin/AdminPosts/AdminPosts";
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
@@ -26,6 +26,7 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto p-4">
       <AdminForm />
+      <AdminPosts />
     </div>
   );
 }
