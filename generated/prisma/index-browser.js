@@ -144,6 +144,18 @@ exports.Prisma.SessionScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  deletedAt: 'deletedAt',
+  deletedById: 'deletedById'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -182,6 +194,7 @@ exports.Role = exports.$Enums.Role = {
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
+  Post: 'Post',
   User: 'User',
   VerificationToken: 'VerificationToken'
 };
