@@ -42,12 +42,12 @@ export default function AdminPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // createPost.mutate({
-    //   title,
-    //   description: description || undefined,
-    //   price: price ? parseFloat(price) : undefined,
-    //   image: image ? URL.createObjectURL(image) : undefined,
-    // });
+    createPost.mutate({
+      title,
+      description: description || undefined,
+      price: price ? parseFloat(price) : undefined,
+      image: image ? URL.createObjectURL(image) : undefined,
+    });
   };
 
   return (

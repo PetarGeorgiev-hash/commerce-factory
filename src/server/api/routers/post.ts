@@ -16,12 +16,22 @@ export const postRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ name: z.string().min(1) }))
+    .input(
+      z.object({
+        title: z.string().min(1, "Title is required"),
+        description: z.string().optional(),
+        price: z.number().optional(),
+        imageUrl: z.string().optional(), // Store image URL, not File
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.post.create({
         data: {
-          name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
+          title: input.title,
+          description: input.description,
+          price: input.price,
+          imageUrl: input.imageUrl, // Add this field to Post model
+          createdById: ctx.session.user.id,
         },
       });
     }),
@@ -29,11 +39,30 @@ export const postRouter = createTRPCRouter({
   getLatest: protectedProcedure.query(async ({ ctx }) => {
     const post = await ctx.db.post.findFirst({
       orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
+      where: { createdById: ctx.session.user.id },
     });
 
     return post ?? null;
   }),
+
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.post.findMany({
+      orderBy: { createdAt: "desc" },
+      where: { deletedAt: null }, // Only get non-deleted posts
+    });
+  }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.post.update({
+        where: { id: input.id },
+        data: {
+          deletedAt: new Date(),
+          deletedById: ctx.session.user.id,
+        },
+      });
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
