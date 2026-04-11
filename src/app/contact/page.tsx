@@ -1,5 +1,6 @@
 import ContactForm from "@/components/ContactPage/ContactForm";
 import SocialMediaFooter from "@/components/LandingPage/SocialMediaFooter";
+import { FaChevronDown } from "react-icons/fa";
 
 export default function ContactPage() {
   //TODO replace with actual number
@@ -42,9 +43,13 @@ export default function ContactPage() {
               <p className="text-muted-foreground mb-4">
                 Connect with us on social media for updates and news
               </p>
-              <div className="flex gap-6">
-                {/* Social icons inline - you can reuse from SocialMediaFooter */}
-              </div>
+              <div className="flex gap-6"></div>
+            </div>
+            <div className="mt-6 flex justify-center">
+              <FaChevronDown
+                size={24}
+                className="text-primary animate-bounce"
+              />
             </div>
           </div>
         </div>
