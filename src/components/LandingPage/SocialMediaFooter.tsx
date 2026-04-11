@@ -3,10 +3,9 @@ import React from "react";
 import Link from "next/link";
 import { socialLinks } from "@/lib/constants/socialMediaLinks";
 
-
 const SocialMediaFooter = () => {
   return (
-    <footer className="border-t border-white/10 bg-black py-8">
+    <footer className="bg-background border-t border-white/10 py-8">
       <div className="container mx-auto px-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-slate-400">Follow us on social media</p>
@@ -16,7 +15,7 @@ const SocialMediaFooter = () => {
                 key={label}
                 href={href}
                 aria-label={label}
-                className="text-white/70 transition-colors hover:text-white"
+                className="dark:text-white/70 transition-colors dark:hover:text-white"
                 target="_blank"
                 rel="noopener noreferrer"
               >
