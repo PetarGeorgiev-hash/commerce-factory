@@ -1,23 +1,10 @@
 // src/components/LandingPage/SocialMediaFooter.tsx
 import React from "react";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
+import { socialLinks } from "@/lib/constants/socialMediaLinks";
+
 
 const SocialMediaFooter = () => {
-  const socialLinks = [
-    { href: "#", icon: FaFacebookF, label: "Facebook" },
-    { href: "#", icon: FaTwitter, label: "Twitter" },
-    { href: "#", icon: FaInstagram, label: "Instagram" },
-    { href: "#", icon: FaLinkedinIn, label: "LinkedIn" },
-    { href: "#", icon: FaYoutube, label: "YouTube" },
-  ];
-
   return (
     <footer className="border-t border-white/10 bg-black py-8">
       <div className="container mx-auto px-6">
