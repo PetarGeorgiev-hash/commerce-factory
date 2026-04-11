@@ -7,7 +7,7 @@ const LandingPage = () => {
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_45%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_45%)]" />{" "}
         <div className="container mx-auto px-6 py-24">
           <div className="max-w-3xl">
             <p className="mb-6 text-sm tracking-[0.4em] text-slate-400 uppercase">
