@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers/Providers";
+import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
 
 //TODO change name to be dynamic based on the project name
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <CookieConsentDialog />
         </Providers>
       </body>
     </html>
