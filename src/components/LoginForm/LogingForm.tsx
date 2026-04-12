@@ -30,7 +30,6 @@ export default function LoginForm() {
       if (result?.error) {
         setEmail("");
         setPassword("");
-        //TODO: test toast error message
         toast.error("Invalid credentials");
       } else if (result?.ok) {
         router.push(ROUTES.HOME);
