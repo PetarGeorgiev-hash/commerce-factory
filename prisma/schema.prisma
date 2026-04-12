@@ -48,6 +48,21 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  price       Float?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id])
+  createdById String
+  deletedAt   DateTime?
+  deletedById String?
+  deletedBy   User?    @relation("DeletedBy", fields: [deletedById], references: [id])
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -58,6 +73,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     role          Role      @default(USER)
+    posts         Post[]    @relation("CreatedBy")
+    deletedPosts  Post[]    @relation("DeletedBy")
 }
 
 model VerificationToken {
