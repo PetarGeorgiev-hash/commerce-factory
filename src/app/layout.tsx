@@ -2,8 +2,6 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import { TRPCReactProvider } from "@/trpc/react";
-import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 import Navbar from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers/Providers";
 import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
@@ -27,18 +25,9 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
         <Providers>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <TRPCReactProvider>
-              {children}
-              <CookieConsentDialog />
-            </TRPCReactProvider>
-          </ThemeProvider>
+          <Navbar />
+          {children}
+          <CookieConsentDialog />
         </Providers>
       </body>
     </html>
