@@ -60,7 +60,7 @@ export function CookieConsentDialog() {
           <div>
             <h4 className="font-medium">Analytics Cookies</h4>
             <p className="text-muted-foreground text-xs">
-              Help us understand how you use WealthSync
+              Help us understand how you use your site and improve it over time
             </p>
           </div>
         </div>
