@@ -16,15 +16,11 @@ import Link from "next/link";
 const COOKIE_CONSENT_KEY = "wealthsync-cookie-consent";
 
 export function CookieConsentDialog() {
-  const [showDialog, setShowDialog] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [showDialog, setShowDialog] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setMounted(true);
     const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (!consent) {
-      setShowDialog(true);
-    }
+    setShowDialog(!consent);
   }, []);
 
   const handleAcceptAll = () => {
@@ -37,7 +33,7 @@ export function CookieConsentDialog() {
     setShowDialog(false);
   };
 
-  if (!mounted) return null;
+  if (showDialog === null) return null;
 
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
