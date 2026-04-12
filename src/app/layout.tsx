@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 import Navbar from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers/Providers";
+import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
 
 //TODO change name to be dynamic based on the project name
 export const metadata: Metadata = {
@@ -33,7 +34,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <TRPCReactProvider>
+              {children}
+              <CookieConsentDialog />
+            </TRPCReactProvider>
           </ThemeProvider>
         </Providers>
       </body>
