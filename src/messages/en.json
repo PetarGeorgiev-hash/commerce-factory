@@ -16,6 +16,10 @@
     "callToAction": "Explore our new collection",
     "LearnMore": "Learn more"
   },
+  "SocialMediaFooter": {
+    "followUs": "Follow us on social media"
+  },
+
   "LangSwitchButton": {
     "language": "Language"
   }
