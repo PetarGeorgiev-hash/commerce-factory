@@ -19,9 +19,9 @@ const AdminForm = () => {
   const [price, setPrice] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
-  const createPost = api.post.create.useMutation({
+  const createProduct = api.product.create.useMutation({
     onSuccess: () => {
-      alert("Post created successfully!");
+      alert("Product created successfully!");
       setTitle("");
       setDescription("");
       setPrice("");
@@ -30,8 +30,8 @@ const AdminForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createPost.mutate({
-      title,
+    createProduct.mutate({
+      name: title,
       description: description || undefined,
       price: price ? parseFloat(price) : undefined,
       image: image ? URL.createObjectURL(image) : undefined,
@@ -89,8 +89,8 @@ const AdminForm = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          <Button type="submit" disabled={createPost.isPending}>
-            {createPost.isPending ? "Creating..." : "Add Post"}
+          <Button type="submit" disabled={createProduct.isPending}>
+            {createProduct.isPending ? "Creating..." : "Add Post"}
           </Button>
         </form>
       </CardContent>
