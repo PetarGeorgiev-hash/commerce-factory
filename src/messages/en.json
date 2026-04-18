@@ -9,6 +9,13 @@
     "login": "Login",
     "logout": "Logout"
   },
+  "LandingPage": {
+    "welcome": "New season drop",
+    "header": "Essentials for modern living",
+    "description": "A restrained, premium collection of apparel and accessories for everyday use.", 
+    "callToAction": "Explore our new collection",
+    "LearnMore": "Learn more"
+  },
   "LangSwitchButton": {
     "language": "Language"
   }
