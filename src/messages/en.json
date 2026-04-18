@@ -12,14 +12,19 @@
   "LandingPage": {
     "welcome": "New season drop",
     "header": "Essentials for modern living",
-    "description": "A restrained, premium collection of apparel and accessories for everyday use.", 
+    "description": "A restrained, premium collection of apparel and accessories for everyday use.",
     "callToAction": "Explore our new collection",
     "LearnMore": "Learn more"
   },
   "SocialMediaFooter": {
     "followUs": "Follow us on social media"
   },
-
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "homeButton": "Return Home",
+    "contactSupport": "Contact Support"
+  },
   "LangSwitchButton": {
     "language": "Language"
   }

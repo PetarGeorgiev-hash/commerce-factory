@@ -19,6 +19,12 @@
   "SocialMediaFooter": {
     "followUs": "Последвайте ни в социалните мрежи"
   },
+    "NotFound": {
+        "title": "Страницата не е намерена",
+        "description": "Съжаляваме, страницата която търсите не съществува.",
+        "homeButton": "Началната страница",
+        "contactSupport": "Свържете се с поддръжката"
+    },
   "LangSwitchButton": {
     "language": "Език"
   }
