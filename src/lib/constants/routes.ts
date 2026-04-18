@@ -10,4 +10,5 @@ export const ROUTES = {
   SETTINGS: "/settings",
   ACCOUNT: "/account",
   ORDERS: "/orders",
+  PRODUCT: "/product",
 };
