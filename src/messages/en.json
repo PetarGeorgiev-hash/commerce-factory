@@ -1,1 +1,15 @@
-{}
+{
+  "Navbar": {
+    "home": "Home",
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact",
+    "shop": "Shop",
+    "categories": "Categories",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "LangSwitchButton": {
+    "language": "Language"
+  }
+}

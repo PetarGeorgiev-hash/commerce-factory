@@ -1,1 +1,15 @@
-{}
+{
+  "Navbar": {
+    "home": "Начало",
+    "products": "Продукти",
+    "about": "За нас",
+    "contact": "Контакти",
+    "shop": "Магазин",
+    "categories": "Категории",
+    "login": "Вход",
+    "logout": "Изход"
+  },
+  "LangSwitchButton": {
+    "language": "Език"
+  }
+}

@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
+import LangSwitchButton from "../LangSwitchButton/LangSwitchButton";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -28,6 +29,7 @@ const Navbar = () => {
         <SearchBar />
         {/* Right Side Actions */}
         <div className="flex items-center space-x-3">
+          <LangSwitchButton />
           <ModeToggle />
           <ShopingCartButton />
           {isAuthenticated ? (
