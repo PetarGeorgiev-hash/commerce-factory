@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers/Providers";
 import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
+import { NextIntlClientProvider } from "next-intl";
 
 //TODO change name to be dynamic based on the project name
 export const metadata: Metadata = {
@@ -24,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
-        <Providers>
-          <Navbar />
-          {children}
-          <CookieConsentDialog />
-        </Providers>
+        <NextIntlClientProvider>
+          <Providers>
+            <Navbar />
+            {children}
+            <CookieConsentDialog />
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

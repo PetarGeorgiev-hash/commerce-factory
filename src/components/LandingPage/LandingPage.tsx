@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
 
-const LandingPage = () => {
+const LandingPage = async () => {
+  const t = await getTranslations("LandingPage");
   return (
     <main className="bg-background min-h-screen text-white">
       <section className="relative overflow-hidden">
@@ -10,14 +12,13 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 py-24">
           <div className="max-w-3xl">
             <p className="mb-6 text-sm tracking-[0.4em] text-slate-800 uppercase dark:text-slate-400">
-              New season drop
+              {t('welcome')}
             </p>
             <h1 className="text-[clamp(3rem,8vw,6.5rem)] leading-[0.9] font-black text-black dark:text-white">
-              Essentials for modern living
+              {t('header')}
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-              A restrained, premium collection of apparel and accessories for
-              everyday use.
+              {t('description')}
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Button
