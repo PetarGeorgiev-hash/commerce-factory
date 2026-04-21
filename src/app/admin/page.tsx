@@ -5,8 +5,9 @@ import { useSession } from "next-auth/react";
 // import { useEffect } from "react";
 // import { ROUTES } from "@/lib/constants/routes";
 import AdminForm from "@/components/Admin/AdminFormBoard/AdminForm";
-import AdminPosts from "@/components/Admin/AdminPosts/AdminPosts";
+// import AdminProducts from "@/components/Admin/AdminProducts/AdminProducts";
 import LoadingText from "@/components/LoadingText";
+import { AdminSidebar } from "@/components/Admin/AdminSidebar/AdminSidebar";
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
@@ -24,9 +25,10 @@ export default function AdminPage() {
     return <LoadingText text="Loading admin dashboard..." />;
 
   return (
-    <div className="container mx-auto p-4">
-      <AdminForm />
-      <AdminPosts />
+    <div>
+      {/* <AdminSidebar /> */}
+      {/* <AdminForm />
+      <AdminProducts /> */}
     </div>
   );
 }
