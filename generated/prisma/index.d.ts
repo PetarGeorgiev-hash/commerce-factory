@@ -3569,6 +3569,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     price: number | null
+    imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     createdById: string | null
@@ -3581,6 +3582,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     price: number | null
+    imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     createdById: string | null
@@ -3593,6 +3595,7 @@ export namespace Prisma {
     title: number
     description: number
     price: number
+    imageUrl: number
     createdAt: number
     updatedAt: number
     createdById: number
@@ -3615,6 +3618,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
@@ -3627,6 +3631,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
@@ -3639,6 +3644,7 @@ export namespace Prisma {
     title?: true
     description?: true
     price?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
@@ -3738,6 +3744,7 @@ export namespace Prisma {
     title: string
     description: string | null
     price: number | null
+    imageUrl: string | null
     createdAt: Date
     updatedAt: Date
     createdById: string
@@ -3769,6 +3776,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
@@ -3783,6 +3791,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
@@ -3797,6 +3806,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
@@ -3811,6 +3821,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     price?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
@@ -3818,7 +3829,7 @@ export namespace Prisma {
     deletedById?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "createdAt" | "updatedAt" | "createdById" | "deletedAt" | "deletedById", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "imageUrl" | "createdAt" | "updatedAt" | "createdById" | "deletedAt" | "deletedById", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     deletedBy?: boolean | Post$deletedByArgs<ExtArgs>
@@ -3843,6 +3854,7 @@ export namespace Prisma {
       title: string
       description: string | null
       price: number | null
+      imageUrl: string | null
       createdAt: Date
       updatedAt: Date
       createdById: string
@@ -4277,6 +4289,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Post", 'String'>
     readonly description: FieldRef<"Post", 'String'>
     readonly price: FieldRef<"Post", 'Float'>
+    readonly imageUrl: FieldRef<"Post", 'String'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
     readonly createdById: FieldRef<"Post", 'String'>
@@ -6912,6 +6925,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     price: 'price',
+    imageUrl: 'imageUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     createdById: 'createdById',
@@ -7202,6 +7216,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     description?: StringNullableFilter<"Post"> | string | null
     price?: FloatNullableFilter<"Post"> | number | null
+    imageUrl?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
@@ -7216,6 +7231,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
@@ -7233,6 +7249,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     description?: StringNullableFilter<"Post"> | string | null
     price?: FloatNullableFilter<"Post"> | number | null
+    imageUrl?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
@@ -7247,6 +7264,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
@@ -7267,6 +7285,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Post"> | string
     description?: StringNullableWithAggregatesFilter<"Post"> | string | null
     price?: FloatNullableWithAggregatesFilter<"Post"> | number | null
+    imageUrl?: StringNullableWithAggregatesFilter<"Post"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     createdById?: StringWithAggregatesFilter<"Post"> | string
@@ -7555,6 +7574,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -7567,6 +7587,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -7579,6 +7600,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7591,6 +7613,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
@@ -7603,6 +7626,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -7615,6 +7639,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7625,6 +7650,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
@@ -8004,6 +8030,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
@@ -8020,6 +8047,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
@@ -8032,6 +8060,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
@@ -8968,6 +8997,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -8979,6 +9009,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -9000,6 +9031,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -9011,6 +9043,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -9112,6 +9145,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     description?: StringNullableFilter<"Post"> | string | null
     price?: FloatNullableFilter<"Post"> | number | null
+    imageUrl?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
@@ -9161,6 +9195,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -9172,6 +9207,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     price?: number | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
@@ -9246,6 +9282,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9257,6 +9294,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9268,6 +9306,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9279,6 +9318,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9290,6 +9330,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
@@ -9301,6 +9342,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
