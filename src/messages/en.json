@@ -19,6 +19,48 @@
   "SocialMediaFooter": {
     "followUs": "Follow us on social media"
   },
+  "LoginPage": {
+    "title": "Sign in",
+    "description": "Enter your email below to sign in to your account",
+    "orContinueWith": "Or continue with",
+    "registerLink": "Don't have an account? Register here",
+    "providerButton": {
+      "failed": "Login failed",
+      "signingIn": "Signing in..."
+    },
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "submit": "Sign In",
+      "signingIn": "Signing in...",
+      "success": "Logged in successfully",
+      "errors": {
+        "invalidCredentials": "Invalid credentials",
+        "failed": "Failed to sign in"
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Create an account",
+    "description": "Enter your details below to create your account",
+    "loginLink": "Already have an account? Sign In",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "submit": "Create Account",
+      "creatingAccount": "Creating account...",
+      "errors": {
+        "allFieldsRequired": "All fields are required",
+        "passwordsDoNotMatch": "Passwords do not match",
+        "failedToSignInAfterRegistration": "Failed to sign in after registration",
+        "generic": "An error occurred during registration"
+      }
+    }
+  },
   "NotFound": {
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for does not exist.",

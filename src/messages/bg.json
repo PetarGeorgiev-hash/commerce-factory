@@ -19,12 +19,54 @@
   "SocialMediaFooter": {
     "followUs": "Последвайте ни в социалните мрежи"
   },
-    "NotFound": {
-        "title": "Страницата не е намерена",
-        "description": "Съжаляваме, страницата която търсите не съществува.",
-        "homeButton": "Началната страница",
-        "contactSupport": "Свържете се с поддръжката"
+  "LoginPage": {
+    "title": "Вход",
+    "description": "Въведи имейла си по-долу, за да влезеш в акаунта си",
+    "orContinueWith": "Или продължи с",
+    "registerLink": "Нямаш акаунт? Регистрирай се тук",
+    "providerButton": {
+      "failed": "Неуспешен вход",
+      "signingIn": "Влизане..."
     },
+    "form": {
+      "email": "Имейл",
+      "emailPlaceholder": "name@example.com",
+      "password": "Парола",
+      "submit": "Вход",
+      "signingIn": "Влизане...",
+      "success": "Успешен вход",
+      "errors": {
+        "invalidCredentials": "Невалидни данни за вход",
+        "failed": "Неуспешен вход"
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Създай акаунт",
+    "description": "Въведи данните си по-долу, за да създадеш акаунт",
+    "loginLink": "Вече имаш акаунт? Вход",
+    "form": {
+      "name": "Име",
+      "namePlaceholder": "Иван Иванов",
+      "email": "Имейл",
+      "password": "Парола",
+      "repeatPassword": "Повтори паролата",
+      "submit": "Създай акаунт",
+      "creatingAccount": "Създаване на акаунт...",
+      "errors": {
+        "allFieldsRequired": "Всички полета са задължителни",
+        "passwordsDoNotMatch": "Паролите не съвпадат",
+        "failedToSignInAfterRegistration": "Неуспешен вход след регистрация",
+        "generic": "Възникна грешка по време на регистрацията"
+      }
+    }
+  },
+  "NotFound": {
+    "title": "Страницата не е намерена",
+    "description": "Съжаляваме, страницата която търсите не съществува.",
+    "homeButton": "Началната страница",
+    "contactSupport": "Свържете се с поддръжката"
+  },
   "LangSwitchButton": {
     "language": "Език"
   }
