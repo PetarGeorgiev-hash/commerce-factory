@@ -1,87 +1,58 @@
-"use client";
-
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { ROUTES } from "@/lib/constants/routes";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { CardContent } from "@/components/ui/card";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { getTranslations } from "next-intl/server";
+import LoginForm from "@/components/LoginForm/LogingForm";
+import LoginProviderButton from "@/components/LoginForm/LoginProviderButton";
 
-export default function LoginForm() {
-  const t = useTranslations("LoginPage.form");
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setEmail("");
-        setPassword("");
-        toast.error(t("errors.invalidCredentials"));
-      } else if (result?.ok) {
-        router.push(ROUTES.SHOP);
-        toast.success(t("success"));
-      }
-    } catch (error) {
-      toast.error(t("errors.failed"), {
-        description: (error as Error).message,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+export default async function LoginPage() {
+  const t = await getTranslations("LoginPage");
 
   return (
-    <CardContent className="grid gap-4">
-      <form onSubmit={handleSubmit} className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="email">{t("email")}</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder={t("emailPlaceholder")}
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
-            required
-          />
+    <Card className="border-0 shadow-none">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl">{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
+      <LoginForm />
+      <CardContent className="grid gap-4">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background text-muted-foreground px-2">
+              {t("orContinueWith")}
+            </span>
+          </div>
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">{t("password")}</Label>
-          <Input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
-            required
-          />
-        </div>
-        <Button
-          type="submit"
-          className="w-full cursor-pointer"
-          disabled={isLoading}
-        >
-          {isLoading ? t("signingIn") : t("submit")}
-        </Button>
-      </form>
-    </CardContent>
+        <LoginProviderButton
+          providerLogo={<FaFacebook />}
+          providerName="Facebook"
+        />
+        <LoginProviderButton
+          providerLogo={<FaGoogle />}
+          providerName="Google"
+        />
+      </CardContent>
+      <CardFooter>
+        <p className="text-muted-foreground w-full text-center text-sm">
+          <Link
+            href={ROUTES.REGISTER}
+            className="hover:text-primary underline underline-offset-4"
+          >
+            {t("registerLink")}
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
   );
 }
