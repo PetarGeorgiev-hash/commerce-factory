@@ -36,7 +36,7 @@ const Navbar = () => {
             <UserDropdown />
           ) : (
             <Button className="bg-primary text-primary-foreground hover:bg-primary/80">
-              <Link href={ROUTES.REGISTER}>Sign In</Link>
+              <Link href={ROUTES.LOGIN}>Sign In</Link>
             </Button>
           )}
           {/* Mobile Menu */}
