@@ -15,7 +15,7 @@ type RegisterResult =
       user: {
         id: string;
         name: string | null;
-        email: string;
+        email: string | null;
       };
       sessionToken: string;
     };
