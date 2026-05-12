@@ -1,9 +1,5 @@
-import React from "react";
+import ShopPage from "@/components/Shop/ShopPage";
 
 export default function Shop() {
-  return (
-    <div>
-      <h1>Shop</h1>
-    </div>
-  );
+  return <ShopPage />;
 }
