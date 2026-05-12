@@ -12,53 +12,8 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-
-type PostItem = RouterOutputs["post"]["getAll"][number];
-
-const priceFilters = [
-  { value: "all", label: "All prices" },
-  { value: "under50", label: "Under $50" },
-  { value: "50-100", label: "$50 - $100" },
-  { value: "over100", label: "Over $100" },
-];
-
-const sortOptions = [
-  { value: "newest", label: "Newest" },
-  { value: "priceAsc", label: "Price: low to high" },
-  { value: "priceDesc", label: "Price: high to low" },
-];
-
-function filterPosts(posts: PostItem[], search: string, priceFilter: string) {
-  return posts.filter((post) => {
-    const query = search.trim().toLowerCase();
-    const matchesSearch =
-      !query ||
-      post.title.toLowerCase().includes(query) ||
-      (post.description?.toLowerCase().includes(query) ?? false);
-
-    const price = post.price ?? 0;
-    const matchesPrice =
-      priceFilter === "all" ||
-      (priceFilter === "under50" && price < 50) ||
-      (priceFilter === "50-100" && price >= 50 && price <= 100) ||
-      (priceFilter === "over100" && price > 100);
-
-    return matchesSearch && matchesPrice;
-  });
-}
-
-function sortPosts(posts: PostItem[], sortOption: string) {
-  return [...posts].sort((a, b) => {
-    if (sortOption === "priceAsc") {
-      return (a.price ?? 0) - (b.price ?? 0);
-    }
-    if (sortOption === "priceDesc") {
-      return (b.price ?? 0) - (a.price ?? 0);
-    }
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-  });
-}
+import ShopSideBar from "./ShopSideBar";
+import { sortPosts, filterPosts } from "@/lib/utils/filterPosts";
 
 export default function ShopPage() {
   const { data: posts, isLoading, error } = api.post.getAll.useQuery();
@@ -73,78 +28,16 @@ export default function ShopPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <aside className="border-border bg-card hidden w-72 shrink-0 space-y-6 rounded-3xl border p-6 shadow-sm md:block">
-        <div className="space-y-3">
-          <h2 className="text-lg font-semibold">Filter items</h2>
-          <p className="text-muted-foreground text-sm">
-            Search and filter posts to find the best item.
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="shop-search" className="text-sm font-medium">
-            Search
-          </label>
-          <Input
-            id="shop-search"
-            placeholder="Search title or description"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Price range</p>
-          <div className="grid gap-2">
-            {priceFilters.map((filter) => (
-              <Button
-                key={filter.value}
-                variant={priceFilter === filter.value ? "default" : "outline"}
-                size="sm"
-                className="justify-start"
-                onClick={() => setPriceFilter(filter.value)}
-              >
-                {filter.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Sort by</p>
-          <div className="grid gap-2">
-            {sortOptions.map((option) => (
-              <Button
-                key={option.value}
-                variant={sortOption === option.value ? "default" : "outline"}
-                size="sm"
-                className="justify-start"
-                onClick={() => setSortOption(option.value)}
-              >
-                {option.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-muted space-y-1 rounded-2xl p-4 text-sm">
-          <p className="font-semibold">Results</p>
-          <p className="text-muted-foreground">
-            Showing {visiblePosts.length} of {posts?.length ?? 0} items
-          </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setSearch("");
-              setPriceFilter("all");
-              setSortOption("newest");
-            }}
-          >
-            Reset filters
-          </Button>
-        </div>
-      </aside>
+      <ShopSideBar
+        posts={posts}
+        visiblePosts={visiblePosts}
+        search={search}
+        setSearch={setSearch}
+        priceFilter={priceFilter}
+        setPriceFilter={setPriceFilter}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+      />
 
       <main className="flex-1 space-y-6">
         <div className="border-border bg-card space-y-3 rounded-3xl border p-6 shadow-sm">
