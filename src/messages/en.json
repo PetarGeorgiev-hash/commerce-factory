@@ -62,8 +62,11 @@
     }
   },
   "ShopPage": {
+    "loading": "Loading shop items...",
+    "error": "An error occurred while fetching shop items.",
+    "refresh": "Refresh Page",
     "ShopSideBar": {
-      "searchTitle": "Search and filter posts to find the best item.",
+      "searchTitle": "Search and filter shop items to find the best deal.",
       "searchLabel": "Search",
       "searchPlaceholder": "Search title or description",
       "filterItems": "Filter items",
@@ -74,8 +77,8 @@
     },
     "Header": {
       "shop": "Shop",
-      "title": "All available posts",
-      "description": "Browse posts from sellers and use the sidebar filters to narrow theresults."
+      "title": "All available shop items",
+      "description": "Browse shop items from sellers and use the sidebar filters to narrow the results."
     }
   },
   "NotFound": {

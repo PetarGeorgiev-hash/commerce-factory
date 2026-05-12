@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { api, type RouterOutputs } from "@/trpc/react";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,8 +14,11 @@ import {
 import ShopSideBar from "./ShopSideBar";
 import { sortPosts, filterPosts } from "@/lib/utils/filterPosts";
 import ShopPageHeader from "./ShopPageHeader";
+import { useTranslations } from "next-intl";
+import ShopPageError from "./ShopPageError";
 
 export default function ShopPage() {
+  const t = useTranslations("ShopPage");
   const { data: posts, isLoading, error } = api.post.getAll.useQuery();
   const [search, setSearch] = useState("");
   const [priceFilter, setPriceFilter] = useState("all");
@@ -45,12 +47,10 @@ export default function ShopPage() {
 
         {isLoading ? (
           <div className="border-border bg-card text-muted-foreground rounded-3xl border p-8 text-center text-sm shadow-sm">
-            Loading shop items...
+            <p>{t("loading")}</p>
           </div>
         ) : error ? (
-          <div className="border-destructive/30 bg-destructive/10 text-destructive rounded-3xl border p-8 text-center text-sm shadow-sm">
-            Failed to load items. Please refresh the page.
-          </div>
+          <ShopPageError />
         ) : visiblePosts.length === 0 ? (
           <div className="border-border bg-card rounded-3xl border p-8 text-center shadow-sm">
             <p className="text-xl font-semibold">

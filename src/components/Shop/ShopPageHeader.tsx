@@ -9,7 +9,7 @@ function ShopPageHeader() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
-            {t("shopl")}
+            {t("shop")}
           </p>
           <h1 className="text-3xl font-semibold">{t("title")}</h1>
         </div>
