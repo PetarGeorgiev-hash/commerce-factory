@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { sortPosts, filterPosts } from "@/lib/utils/filterPosts";
 import type { PostItem } from "@/lib/types/PostItem";
+import { useTranslations } from "next-intl";
 
 const priceFilters = [
   { value: "all", label: "All prices" },
@@ -38,29 +39,28 @@ function ShopSideBar({
   sortOption: string;
   setSortOption: (sortOption: string) => void;
 }) {
+  const t = useTranslations("ShopPage.ShopSideBar");
   return (
     <aside className="border-border bg-card hidden w-72 shrink-0 space-y-6 rounded-3xl border p-6 shadow-sm md:block">
       <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Filter items</h2>
-        <p className="text-muted-foreground text-sm">
-          Search and filter posts to find the best item.
-        </p>
+        <h2 className="text-lg font-semibold">{t("filterItems")}</h2>
+        <p className="text-muted-foreground text-sm">{t("searchTitle")}</p>
       </div>
 
       <div className="space-y-2">
         <label htmlFor="shop-search" className="text-sm font-medium">
-          Search
+          {t("searchLabel")}
         </label>
         <Input
           id="shop-search"
-          placeholder="Search title or description"
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Price range</p>
+        <p className="text-sm font-medium">{t("priceRange")}</p>
         <div className="grid gap-2">
           {priceFilters.map((filter) => (
             <Button
@@ -77,7 +77,7 @@ function ShopSideBar({
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Sort by</p>
+        <p className="text-sm font-medium">{t("sortByLabel")}</p>
         <div className="grid gap-2">
           {sortOptions.map((option) => (
             <Button
@@ -94,7 +94,7 @@ function ShopSideBar({
       </div>
 
       <div className="bg-muted space-y-1 rounded-2xl p-4 text-sm">
-        <p className="font-semibold">Results</p>
+        <p className="font-semibold">{t("results")}</p>
         <p className="text-muted-foreground">
           Showing {visiblePosts.length} of {posts?.length ?? 0} items
         </p>
@@ -107,7 +107,7 @@ function ShopSideBar({
             setSortOption("newest");
           }}
         >
-          Reset filters
+          {t("resetFilters")}
         </Button>
       </div>
     </aside>

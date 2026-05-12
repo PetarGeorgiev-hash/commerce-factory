@@ -61,6 +61,22 @@
       }
     }
   },
+  "ShopPage": {
+    "ShopSideBar": {
+      "searchTitle": "Търсене и филтриране на публикации за да намерите най-добрия продукт.",
+      "searchLabel": "Търсене",
+      "searchPlaceholder": "Търсене по заглавие или описание",
+      "filterItems": "Филтриране на елементи",
+      "priceRange": "Ценов диапазон",
+      "sortByLabel": "Сортиране по",
+      "results": "Резултати",
+      "resetFilters": "Нулиране на филтрите"
+    },
+    "ProductCard": {
+      "viewDetails": "View Details",
+      "addToCart": "Add to Cart"
+    }
+  },
   "NotFound": {
     "title": "Страницата не е намерена",
     "description": "Съжаляваме, страницата която търсите не съществува.",

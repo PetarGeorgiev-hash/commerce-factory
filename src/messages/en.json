@@ -61,6 +61,22 @@
       }
     }
   },
+  "ShopPage": {
+    "ShopSideBar": {
+      "searchTitle": "Search and filter posts to find the best item.",
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search title or description",
+      "filterItems": "Filter items",
+      "priceRange": "Price range",
+      "sortByLabel": "Sort by",
+      "results": "Results",
+      "resetFilters" : "Reset filters"
+    },
+    "ProductCard": {
+      "viewDetails": "View Details",
+      "addToCart": "Add to Cart"
+    }
+  },
   "NotFound": {
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for does not exist.",
