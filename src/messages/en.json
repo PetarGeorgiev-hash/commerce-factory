@@ -70,11 +70,12 @@
       "priceRange": "Price range",
       "sortByLabel": "Sort by",
       "results": "Results",
-      "resetFilters" : "Reset filters"
+      "resetFilters": "Reset filters"
     },
-    "ProductCard": {
-      "viewDetails": "View Details",
-      "addToCart": "Add to Cart"
+    "Header": {
+      "shop": "Shop",
+      "title": "All available posts",
+      "description": "Browse posts from sellers and use the sidebar filters to narrow theresults."
     }
   },
   "NotFound": {

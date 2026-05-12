@@ -72,9 +72,10 @@
       "results": "Резултати",
       "resetFilters": "Нулиране на филтрите"
     },
-    "ProductCard": {
-      "viewDetails": "View Details",
-      "addToCart": "Add to Cart"
+    "Header": {
+      "shop": "Магазин",
+      "title": "Всички налични публикации",
+      "description": "Прегледайте публикациите от продавачи и използвайте филтрите в страничната лента, за да съкратите резултатите."
     }
   },
   "NotFound": {

@@ -1,18 +1,20 @@
-import React from "react";
+"use client";
+import { useTranslations } from "next-intl";
 
 function ShopPageHeader() {
+  const t = useTranslations("ShopPage.Header");
+
   return (
     <div className="border-border bg-card space-y-3 rounded-3xl border p-6 shadow-sm">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
-            Shop
+            {t("shopl")}
           </p>
-          <h1 className="text-3xl font-semibold">All available posts</h1>
+          <h1 className="text-3xl font-semibold">{t("title")}</h1>
         </div>
         <p className="text-muted-foreground max-w-2xl text-sm">
-          Browse posts from sellers and use the sidebar filters to narrow the
-          results.
+          {t("description")}
         </p>
       </div>
     </div>
