@@ -79,6 +79,14 @@
       "shop": "Shop",
       "title": "All available shop items",
       "description": "Browse shop items from sellers and use the sidebar filters to narrow the results."
+    },
+    "NoProducts": {
+      "noProductsMatchFilters": "No products match your filters.",
+      "tryAdjustingSearchTerms": "Try adjusting search terms or price range."
+    },
+    "ProductCard": {
+      "noDescription": "No description available",
+      "noImage": "No image available"
     }
   },
   "NotFound": {
