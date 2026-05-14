@@ -7,7 +7,18 @@
     "shop": "Shop",
     "categories": "Categories",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "signIn": "Sign In",
+    "UserDropdown": {
+      "account": "Account",
+      "orders": "Orders",
+      "settings": "Settings",
+      "logout": "Logout",
+      "toastError": "Error occurred while logging out, please try again"
+    }
+  },
+  "SearchBar": {
+    "placeholder": "Search for products..."
   },
   "LandingPage": {
     "welcome": "New season drop",

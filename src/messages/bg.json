@@ -7,7 +7,18 @@
     "shop": "Магазин",
     "categories": "Категории",
     "login": "Вход",
-    "logout": "Изход"
+    "logout": "Изход",
+    "signIn": "Вход",
+    "UserDropdown": {
+      "account": "Акаунт",
+      "orders": "Поръчки",
+      "settings": "Настройки",
+      "logout": "Изход",
+      "toastError": "Грешка при изхода, моля опитайте отново"
+    }
+  },
+  "SearchBar": {
+    "placeholder": "Търсене na продукти..."
   },
   "LandingPage": {
     "welcome": "Нова колекция",
