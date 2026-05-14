@@ -11,8 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ROUTES } from "@/lib/constants/routes";
+import { useTranslations } from "next-intl";
 
 const HamburgerMenu = () => {
+  const t = useTranslations("Navbar");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,7 +33,7 @@ const HamburgerMenu = () => {
             href={ROUTES.SHOP}
             className="flex cursor-pointer items-center gap-2"
           >
-            Shop
+            {t("shop")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="cursor-pointer">
@@ -38,7 +41,7 @@ const HamburgerMenu = () => {
             href={ROUTES.CATEGORIES}
             className="flex cursor-pointer items-center gap-2"
           >
-            Categories
+            {t("categories")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="cursor-pointer">
@@ -46,7 +49,7 @@ const HamburgerMenu = () => {
             href={ROUTES.ABOUT}
             className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
           >
-            About
+            {t("about")}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="cursor-pointer">
@@ -54,7 +57,7 @@ const HamburgerMenu = () => {
             href={ROUTES.CONTACT}
             className="hover:text-primary cursor-pointer text-sm font-medium transition-colors"
           >
-            Contact
+            {t("contact")}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
