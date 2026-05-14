@@ -20,6 +20,12 @@
       "header": "Barkley L. Hendricks NBA Collection",
       "linkOne": "Discover",
       "linkTwo": "Shop"
+    },
+    "SubscriptionSection": {
+      "paragraph": "Join The Conversation",
+      "header": "Subscribe For Exclusive Releases",
+      "subscribeButton": "Subscribe",
+      "emailPlaceholder": "Enter your email"
     }
   },
   "SocialMediaFooter": {
