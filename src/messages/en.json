@@ -61,6 +61,34 @@
       }
     }
   },
+  "ShopPage": {
+    "loading": "Loading shop items...",
+    "error": "An error occurred while fetching shop items.",
+    "refresh": "Refresh Page",
+    "ShopSideBar": {
+      "searchTitle": "Search and filter shop items to find the best deal.",
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search title or description",
+      "filterItems": "Filter items",
+      "priceRange": "Price range",
+      "sortByLabel": "Sort by",
+      "results": "Results",
+      "resetFilters": "Reset filters"
+    },
+    "Header": {
+      "shop": "Shop",
+      "title": "All available shop items",
+      "description": "Browse shop items from sellers and use the sidebar filters to narrow the results."
+    },
+    "NoProducts": {
+      "noProductsMatchFilters": "No products match your filters.",
+      "tryAdjustingSearchTerms": "Try adjusting search terms or price range."
+    },
+    "ProductCard": {
+      "noDescription": "No description available",
+      "noImage": "No image available"
+    }
+  },
   "NotFound": {
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for does not exist.",
