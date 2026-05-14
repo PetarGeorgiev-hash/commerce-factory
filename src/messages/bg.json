@@ -56,10 +56,11 @@
     "title": "Създай акаунт",
     "description": "Въведи данните си по-долу, за да създадеш акаунт",
     "loginLink": "Вече имаш акаунт? Вход",
-    "form": {
+    "Form": {
       "name": "Име",
       "namePlaceholder": "Иван Иванов",
       "email": "Имейл",
+      "emailPlaceholder": "name@example.com",
       "password": "Парола",
       "repeatPassword": "Повтори паролата",
       "submit": "Създай акаунт",

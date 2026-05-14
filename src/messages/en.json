@@ -56,10 +56,11 @@
     "title": "Create an account",
     "description": "Enter your details below to create your account",
     "loginLink": "Already have an account? Sign In",
-    "form": {
+    "Form": {
       "name": "Name",
       "namePlaceholder": "John Doe",
       "email": "Email",
+      "emailPlaceholder": "name@example.com",
       "password": "Password",
       "repeatPassword": "Repeat Password",
       "submit": "Create Account",
