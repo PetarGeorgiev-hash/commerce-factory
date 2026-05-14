@@ -30,7 +30,7 @@ export default function HeroSection() {
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
-            href={ROUTES.DISCOVER}
+            href={ROUTES.CATEGORIES}
             className="group flex h-14 min-w-55 items-center justify-center border border-white/40 bg-black/50 px-10 text-[12px] tracking-[0.35em] uppercase backdrop-blur-sm transition hover:bg-white hover:text-black"
           >
             {t("linkOne")}
