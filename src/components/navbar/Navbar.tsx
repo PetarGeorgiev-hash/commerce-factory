@@ -18,8 +18,6 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   
   const isAuthenticated = status === "authenticated" && session?.user;
-  console.log('session', session);
-  console.log('status', status);
   
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
