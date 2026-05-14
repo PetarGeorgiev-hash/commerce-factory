@@ -14,7 +14,13 @@
     "header": "Essentials for modern living",
     "description": "A restrained, premium collection of apparel and accessories for everyday use.",
     "callToAction": "Explore our new collection",
-    "LearnMore": "Learn more"
+    "LearnMore": "Learn more",
+    "HeroSection": {
+      "paragraph": "New Collection",
+      "header": "Barkley L. Hendricks NBA Collection",
+      "linkOne": "Discover",
+      "linkTwo": "Shop"
+    }
   },
   "SocialMediaFooter": {
     "followUs": "Follow us on social media"

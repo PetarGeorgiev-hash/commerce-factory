@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ROUTES } from "@/lib/constants/routes";
+import LogoHeader from "./LogoHeader";
+import HeroSection from "./HeroSection";
 
 const categories = [
   {
@@ -18,63 +20,11 @@ const categories = [
   },
 ];
 
-export default function HomePage() {
+export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-slate-300 text-slate-800 dark:bg-black dark:bg-slate-500 dark:text-white">
-      <header className="sticky top-0 z-50 border-b border-black/10 bg-slate-300 text-black backdrop-blur dark:bg-slate-500 dark:text-white">
-        <div className="flex h-16 items-center justify-between px-6 lg:px-10">
-          {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <Link
-              href="/"
-              className="text-xl font-semibold tracking-[0.35em] uppercase"
-            >
-              Name of Brand
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* HERO */}
-      <section className="relative h-[92vh] overflow-hidden">
-        {/* TODO add hero image */}
-        {/* <Image
-          src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1800&auto=format&fit=crop"
-          alt="Hero"
-          fill
-          priority
-          className="object-cover grayscale"
-        /> */}
-
-        <div className="absolute inset-0 bg-black/20" />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
-          <p className="mb-5 text-[11px] tracking-[0.45em] uppercase opacity-80">
-            New Collection
-          </p>
-
-          <h1 className="max-w-5xl text-4xl font-light tracking-[0.15em] uppercase md:text-6xl">
-            Barkley L. Hendricks NBA Collection
-          </h1>
-
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href={ROUTES.DISCOVER}
-              className="group flex h-14 min-w-[220px] items-center justify-center border border-white/40 bg-black/50 px-10 text-[12px] tracking-[0.35em] uppercase backdrop-blur-sm transition hover:bg-white hover:text-black"
-            >
-              Discover
-            </Link>
-
-            <Link
-              href={ROUTES.SHOP}
-              className="group flex h-14 min-w-[220px] items-center justify-center border border-white/40 bg-black/50 px-10 text-[12px] tracking-[0.35em] uppercase backdrop-blur-sm transition hover:bg-white hover:text-black"
-            >
-              Shop
-            </Link>
-          </div>
-        </div>
-      </section>
-
+    <main className="min-h-screen bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-white">
+      <LogoHeader />
+      <HeroSection />
       {/* FEATURE GRID */}
       <section className="grid grid-cols-1 gap-[1px] bg-black/10 md:grid-cols-2">
         {categories.map((item) => (
