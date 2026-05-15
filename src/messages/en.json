@@ -101,6 +101,16 @@
       "noImage": "No image available"
     }
   },
+  "CookieConsentDialog": {
+    "title": "We Use Cookies",
+    "description": "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
+    "essentialHeader": "Essential Cookies",
+    "analyticsHeader": "Analytics Cookies",
+    "requiredParagraph": "Required for authentication and core functionality",
+    "analyticsParagraph": "Help us understand how you use your site and improve it over time",
+    "acceptAll": "Accept All Cookies",
+    "necessary": "Necessary Only"
+  },
   "NotFound": {
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for does not exist.",

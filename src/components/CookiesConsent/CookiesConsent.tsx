@@ -12,10 +12,14 @@ import {
 } from "@/components/ui/dialog";
 import { Cookie, Settings } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { ROUTES } from "@/lib/constants/routes";
 
 const COOKIE_CONSENT_KEY = "wealthsync-cookie-consent";
 
 export function CookieConsentDialog() {
+  const t = useTranslations("CookieConsentDialog");
+
   const [showDialog, setShowDialog] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -41,26 +45,24 @@ export function CookieConsentDialog() {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Cookie className="h-5 w-5 text-amber-600" />
-            We Use Cookies
+            {t("title")}
           </DialogTitle>
           <DialogDescription className="text-left">
-            We use cookies to enhance your experience, analyze site usage, and
-            assist with our marketing efforts. You can manage your preferences
-            at any time.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-3 text-sm">
           <div>
-            <h4 className="font-medium">Essential Cookies</h4>
+            <h4 className="font-medium">{t("essentialHeader")}</h4>
             <p className="text-muted-foreground text-xs">
-              Required for authentication and core functionality
+              {t("requiredParagraph")}
             </p>
           </div>
           <div>
-            <h4 className="font-medium">Analytics Cookies</h4>
+            <h4 className="font-medium">{t("analyticsHeader")}</h4>
             <p className="text-muted-foreground text-xs">
-              Help us understand how you use your site and improve it over time
+              {t("analyticsParagraph")}
             </p>
           </div>
         </div>
@@ -70,7 +72,7 @@ export function CookieConsentDialog() {
             onClick={handleAcceptAll}
             className="w-full cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
           >
-            Accept All Cookies
+            {t("acceptAll")}
           </Button>
           <div className="flex w-full gap-2">
             <Button
@@ -78,7 +80,7 @@ export function CookieConsentDialog() {
               onClick={handleAcceptNecessary}
               className="flex-1 cursor-pointer"
             >
-              Necessary Only
+              {t("necessary")}
             </Button>
             <Button
               variant="outline"
@@ -86,7 +88,7 @@ export function CookieConsentDialog() {
               asChild
               className="cursor-pointer"
             >
-              <Link href="/privacy">
+              <Link href={ROUTES.SETTINGS}>
                 <Settings className="h-4 w-4" />
               </Link>
             </Button>
