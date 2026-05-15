@@ -13,14 +13,14 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
 import LangSwitchButton from "../LangSwitchButton/LangSwitchButton";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  
+  const t = useTranslations("Navbar");
+
   const isAuthenticated = status === "authenticated" && session?.user;
-  console.log('session', session);
-  console.log('status', status);
-  
+
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -36,7 +36,7 @@ const Navbar = () => {
             <UserDropdown />
           ) : (
             <Button className="bg-primary text-primary-foreground hover:bg-primary/80">
-              <Link href={ROUTES.LOGIN}>Sign In</Link>
+              <Link href={ROUTES.LOGIN}>{t("signIn")}</Link>
             </Button>
           )}
           {/* Mobile Menu */}

@@ -7,7 +7,18 @@
     "shop": "Shop",
     "categories": "Categories",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "signIn": "Sign In",
+    "UserDropdown": {
+      "account": "Account",
+      "orders": "Orders",
+      "settings": "Settings",
+      "logout": "Logout",
+      "toastError": "Error occurred while logging out, please try again"
+    }
+  },
+  "SearchBar": {
+    "placeholder": "Search for products..."
   },
   "LandingPage": {
     "welcome": "New season drop",
@@ -57,10 +68,11 @@
     "title": "Create an account",
     "description": "Enter your details below to create your account",
     "loginLink": "Already have an account? Sign In",
-    "form": {
+    "Form": {
       "name": "Name",
       "namePlaceholder": "John Doe",
       "email": "Email",
+      "emailPlaceholder": "name@example.com",
       "password": "Password",
       "repeatPassword": "Repeat Password",
       "submit": "Create Account",
@@ -100,6 +112,16 @@
       "noDescription": "No description available",
       "noImage": "No image available"
     }
+  },
+  "CookieConsentDialog": {
+    "title": "We Use Cookies",
+    "description": "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
+    "essentialHeader": "Essential Cookies",
+    "analyticsHeader": "Analytics Cookies",
+    "requiredParagraph": "Required for authentication and core functionality",
+    "analyticsParagraph": "Help us understand how you use your site and improve it over time",
+    "acceptAll": "Accept All Cookies",
+    "necessary": "Necessary Only"
   },
   "NotFound": {
     "title": "Page Not Found",

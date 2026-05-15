@@ -13,20 +13,22 @@ import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
 import { signOut } from "next-auth/react";
 import { toast } from "sonner";
-
-const handleLogout = async () => {
-  try {
-    await signOut({ callbackUrl: ROUTES.HOME });
-  } catch (error) {
-    toast.error(
-      "Logout failed. Please try again." +
-        (error instanceof Error ? error.message : ""),
-    );
-    throw new Error("Logout failed");
-  }
-};
+import { useTranslations } from "next-intl";
 
 const UserDropdown = () => {
+  const t = useTranslations("Navbar.UserDropdown");
+
+  const handleLogout = async () => {
+    try {
+      await signOut({ callbackUrl: ROUTES.HOME });
+    } catch (error) {
+      toast.error(
+        t("toastError") + (error instanceof Error ? error.message : ""),
+      );
+      throw new Error("Logout failed");
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="cursor-pointer">
@@ -36,19 +38,19 @@ const UserDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem className="cursor-pointer">
-          <Link href={ROUTES.ACCOUNT}>Account</Link>
+          <Link href={ROUTES.ACCOUNT}>{t("account")}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          <Link href={ROUTES.ORDERS}>Orders</Link>
+          <Link href={ROUTES.ORDERS}>{t("orders")}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
-          <Link href={ROUTES.SETTINGS}>Settings</Link>
+          <Link href={ROUTES.SETTINGS}>{t("settings")}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="align-right cursor-pointer"
           onClick={handleLogout}
         >
-          Logout
+          {t("logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
