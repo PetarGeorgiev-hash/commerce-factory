@@ -144,17 +144,35 @@ exports.Prisma.SessionScalarFieldEnum = {
   expires: 'expires'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  price: 'price',
-  imageUrl: 'imageUrl',
+  brand: 'brand',
+  category: 'category',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdById: 'createdById',
   deletedAt: 'deletedAt',
   deletedById: 'deletedById'
+};
+
+exports.Prisma.Product_VariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  color: 'color',
+  colorHex: 'colorHex',
+  price: 'price',
+  images: 'images',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.Product_Variant_SizeScalarFieldEnum = {
+  id: 'id',
+  variantId: 'variantId',
+  size: 'size',
+  stock: 'stock'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -195,7 +213,9 @@ exports.Role = exports.$Enums.Role = {
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
-  Post: 'Post',
+  Product: 'Product',
+  Product_Variant: 'Product_Variant',
+  Product_Variant_Size: 'Product_Variant_Size',
   User: 'User',
   VerificationToken: 'VerificationToken'
 };
