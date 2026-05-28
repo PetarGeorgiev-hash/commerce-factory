@@ -1,20 +1,19 @@
-import type { PostItem } from "../types/PostItem";
+import type { ProductItem } from "../types/types";
 
-export function filterPosts(
-  posts: PostItem[],
+export function filterProducts(
+  products: ProductItem[],
   search: string,
   priceFilter: string,
-): PostItem[] {
-  return posts.filter((post) => {
+): ProductItem[] {
+  return products.filter((product) => {
     const query = search.trim().toLowerCase();
     const matchesSearch =
-      !query ||
-      post.title.toLowerCase().includes(query) ??
-      post.description?.toLowerCase().includes(query) ??
-      post.images?.some((image) => image.toLowerCase().includes(query)) ??
+      (!query || product.title.toLowerCase().includes(query)) ??
+      product.description?.toLowerCase().includes(query) ??
+      product.images?.some((image) => image.toLowerCase().includes(query)) ??
       false;
 
-    const price = typeof post.price === "number" ? post.price : 0;
+    const price = typeof product.price === "number" ? product.price : 0;
     const matchesPrice =
       priceFilter === "all" ||
       (priceFilter === "under50" && price < 50) ||
@@ -25,8 +24,11 @@ export function filterPosts(
   });
 }
 
-export function sortPosts(posts: PostItem[], sortOption: string): PostItem[] {
-  return [...posts].sort((a, b) => {
+export function sortProducts(
+  products: ProductItem[],
+  sortOption: string,
+): ProductItem[] {
+  return [...products].sort((a, b) => {
     if (sortOption === "priceAsc") {
       return (a.price ?? 0) - (b.price ?? 0);
     }

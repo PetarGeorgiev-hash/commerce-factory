@@ -1,5 +1,6 @@
 import z from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { del } from "@vercel/blob";
 
 const sizeSchema = z.object({
   size: z.string().min(1),
@@ -7,7 +8,7 @@ const sizeSchema = z.object({
 });
 
 const variantSchema = z.object({
-  color: z.string().min(1),
+  color: z.string().default(""),
   colorHex: z.string().optional(),
   price: z.number().positive(),
   images: z.array(z.string().url()).min(1, "At least one image required"),
@@ -89,11 +90,20 @@ export const productRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const existingVariants = await ctx.db.product_Variant.findMany({
+        where: { productId: input.id },
+        select: { images: true },
+      });
+      const oldUrls = existingVariants.flatMap((v) => v.images);
+
+      const newUrls = new Set(input.variants.flatMap((v) => v.images));
+      const urlsToDelete = oldUrls.filter((url) => !newUrls.has(url));
+
       await ctx.db.product_Variant.deleteMany({
         where: { productId: input.id },
       });
 
-      return ctx.db.product.update({
+      const updated = await ctx.db.product.update({
         where: { id: input.id },
         data: {
           title: input.title,
@@ -117,17 +127,30 @@ export const productRouter = createTRPCRouter({
         },
         include: { variants: { include: { sizes: true } } },
       });
+
+      if (urlsToDelete.length > 0) {
+        await del(urlsToDelete);
+      }
+
+      return updated;
     }),
 
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.product.update({
-        where: { id: input.id },
-        data: {
-          deletedAt: new Date(),
-          deletedById: ctx.session.user.id,
-        },
+      const variants = await ctx.db.product_Variant.findMany({
+        where: { productId: input.id },
+        select: { images: true },
       });
+      const allImages = variants.flatMap((v) => v.images);
+
+      const deleted = await ctx.db.product.update({
+        where: { id: input.id },
+        data: { deletedAt: new Date(), deletedById: ctx.session.user.id },
+      });
+
+      if (allImages.length > 0) await del(allImages);
+
+      return deleted;
     }),
 });

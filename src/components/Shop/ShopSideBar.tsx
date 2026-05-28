@@ -3,8 +3,8 @@
 import { Input } from "@/components/ui/input";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { sortPosts, filterPosts } from "@/lib/utils/filterPosts";
-import type { PostItem } from "@/lib/types/PostItem";
+import { sortProducts, filterProducts } from "@/lib/utils/filterProducts";
+import type {  ProductItem } from "@/lib/types/types";
 import { useTranslations } from "next-intl";
 
 const priceFilters = [
@@ -21,8 +21,8 @@ const sortOptions = [
 ];
 
 function ShopSideBar({
-  posts,
-  visiblePosts,
+  products,
+  visableProducts,
   search,
   setSearch,
   priceFilter,
@@ -30,8 +30,8 @@ function ShopSideBar({
   sortOption,
   setSortOption,
 }: {
-  posts: PostItem[];
-  visiblePosts: PostItem[];
+  products: ProductItem[];
+  visableProducts: ProductItem[];
   search: string;
   setSearch: (search: string) => void;
   priceFilter: string;
@@ -96,7 +96,7 @@ function ShopSideBar({
       <div className="bg-muted space-y-1 rounded-2xl p-4 text-sm">
         <p className="font-semibold">{t("results")}</p>
         <p className="text-muted-foreground">
-          Showing {visiblePosts.length} of {posts?.length ?? 0} items
+          Showing {visableProducts.length} of {products?.length ?? 0} items
         </p>
         <Button
           variant="outline"

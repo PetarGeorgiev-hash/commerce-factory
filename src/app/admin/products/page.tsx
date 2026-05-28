@@ -25,7 +25,6 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
       <div className="border-b border-gray-100 px-8 py-8">
         <div className="mx-auto flex max-w-7xl items-end justify-between">
           <div>
@@ -42,8 +41,6 @@ export default function ProductsPage() {
           </button>
         </div>
       </div>
-
-      {/* Table */}
       <div className="mx-auto max-w-7xl px-8 py-10">
         {!products?.length ? (
           <div className="flex flex-col items-center justify-center py-32 text-center">
@@ -58,7 +55,7 @@ export default function ProductsPage() {
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
-            {/* Column headers */}
+
             <div className="grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-6 pb-4 text-xs uppercase tracking-[0.15em] text-gray-400">
               <span>Product</span>
               <span>Brand</span>
@@ -72,9 +69,7 @@ export default function ProductsPage() {
                 key={product.id}
                 className="group grid grid-cols-[2fr_1fr_1fr_1fr_auto] items-center gap-6 py-5"
               >
-                {/* Product info */}
                 <div className="flex items-center gap-4">
-                  {/* First image thumbnail */}
                   {product.variants[0]?.images[0] ? (
                     <img
                       src={product.variants[0].images[0]}
@@ -93,19 +88,11 @@ export default function ProductsPage() {
                     )}
                   </div>
                 </div>
-
-                {/* Brand */}
                 <p className="text-sm text-gray-500">{product.brand ?? "—"}</p>
-
-                {/* Category */}
                 <p className="text-sm text-gray-500">{product.category ?? "—"}</p>
-
-                {/* Variants count */}
                 <p className="text-sm text-gray-500">
                   {product.variants.length} {product.variants.length === 1 ? "variant" : "variants"}
                 </p>
-
-                {/* Actions */}
                 <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                   <button
                     onClick={() => router.push(`/admin/products/${product.id}`)}
@@ -114,7 +101,6 @@ export default function ProductsPage() {
                   >
                     <Pencil className="h-3.5 w-3.5" />
                   </button>
-
                   {confirmId === product.id ? (
                     <div className="flex items-center gap-1">
                       <button

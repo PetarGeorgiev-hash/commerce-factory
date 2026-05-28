@@ -3,7 +3,7 @@ import { put } from "@vercel/blob";
 import { useSession } from "next-auth/react";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
-const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+const MAX_SIZE_BYTES = 15 * 1024 * 1024; // 5 MB
 
 export async function POST(req: Request) {
   const session = await auth();
