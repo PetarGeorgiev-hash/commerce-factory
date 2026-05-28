@@ -6,6 +6,7 @@ import Google from "next-auth/providers/google";
 import { db } from "@/server/db";
 import { ROUTES } from "@/lib/constants/routes";
 import bcrypt from "bcryptjs"; // Import the entire bcryptjs package
+import type { Role } from "generated/prisma";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -17,14 +18,12 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      role: Role;
     } & DefaultSession["user"];
   }
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    role: Role;
+  }
 }
 
 /**
@@ -66,10 +65,10 @@ export const authConfig = {
             user.password,
           );
           if (!isPasswordValid) {
-            throw new Error('Password is invalid!');
+            throw new Error("Password is invalid!");
           }
         } catch (error) {
-          throw new Error(error as string)
+          throw new Error(error as string);
         }
 
         return {
@@ -77,6 +76,7 @@ export const authConfig = {
           email: user.email,
           name: user.name,
           image: user.image,
+          role: user.role,
         };
       },
     }),
@@ -104,12 +104,14 @@ export const authConfig = {
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.sub!;
+        session.user.role = token.role as Role;
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id;
+        token.role = user.role;
       }
       return token;
     },

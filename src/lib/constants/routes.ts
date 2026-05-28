@@ -11,4 +11,7 @@ export const ROUTES = {
   SETTINGS: "/settings",
   ACCOUNT: "/account",
   ORDERS: "/orders",
+  ADMIN: "/admin",
+  ADMIN_PRODUCTS: "/admin/products",
+  ADMIN_CREATE_PRODUCT: "/admin/products/new",
 };

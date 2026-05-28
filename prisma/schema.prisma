@@ -48,33 +48,55 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Post {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  price       Float?
-  imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id])
-  createdById String
-  deletedAt   DateTime?
-  deletedById String?
-  deletedBy   User?    @relation("DeletedBy", fields: [deletedById], references: [id])
+model Product {
+    id          String            @id @default(cuid())
+    title       String
+    description String?
+    brand       String?
+    category    String?
+    createdAt   DateTime          @default(now())
+    updatedAt   DateTime          @updatedAt
+    createdById String
+    createdBy   User              @relation("CreatedBy", fields: [createdById], references: [id])
+    deletedAt   DateTime?
+    deletedById String?
+    deletedBy   User?             @relation("DeletedBy", fields: [deletedById], references: [id])
+    variants    Product_Variant[]
+}
+
+model Product_Variant {
+    id        String                 @id @default(cuid())
+    productId String
+    product   Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
+    color     String?
+    colorHex  String?
+    price     Float
+    images    String[]
+    sizes     Product_Variant_Size[]
+    createdAt DateTime               @default(now())
+    updatedAt DateTime               @updatedAt
+}
+
+model Product_Variant_Size {
+    id        String          @id @default(cuid())
+    variantId String
+    variant   Product_Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+    size      String // "EU 42", "UK 8", etc.
+    stock     Int             @default(0)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    password      String?
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    role          Role      @default(USER)
-    posts         Post[]    @relation("CreatedBy")
-    deletedPosts  Post[]    @relation("DeletedBy")
+    id              String    @id @default(cuid())
+    name            String?
+    email           String?   @unique
+    password        String?
+    emailVerified   DateTime?
+    image           String?
+    accounts        Account[]
+    sessions        Session[]
+    role            Role      @default(USER)
+    products        Product[] @relation("CreatedBy")
+    deletedProducts Product[] @relation("DeletedBy")
 }
 
 model VerificationToken {
