@@ -1,4 +1,3 @@
-// app/api/blob-delete/route.ts
 import { del } from "@vercel/blob";
 import { auth } from "@/server/auth";
 
