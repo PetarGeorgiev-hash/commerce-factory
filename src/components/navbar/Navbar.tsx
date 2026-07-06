@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="container flex min-h-16 flex-wrap items-center justify-between gap-y-2 px-4 py-2 md:h-16 md:flex-nowrap md:py-0">
         <PageLogoComponent />
         <PageNavigation />
         <SearchBar />

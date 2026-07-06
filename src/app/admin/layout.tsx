@@ -1,31 +1,27 @@
-"use client"
-import { AdminPanel } from "@/components/Admin/AdminPanel"
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { AdminPanel } from "@/components/Admin/AdminPanel";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { redirect } from "next/navigation";
 import { ROUTES } from "@/lib/constants/routes";
-import LoadingText from "@/components/LoadingText";
+import { auth } from "@/server/auth";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-const { data: session, status } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (status === "loading") return;
-    if (session?.user.role !== "ADMIN" || status === "unauthenticated") {
-      router.push(ROUTES.HOME);
-    }
-  }, [session, status, router]);
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth();
 
-  if (status === "loading")
-    return <LoadingText text="Loading admin dashboard..." />;
+  if (session?.user.role !== "ADMIN") {
+    redirect(ROUTES.HOME);
+  }
+
   return (
     <SidebarProvider>
       <AdminPanel />
-      <main style={{width: '100%'}}>
+      <main style={{ width: "100%" }}>
         <SidebarTrigger />
         {children}
       </main>
     </SidebarProvider>
-  )
+  );
 }

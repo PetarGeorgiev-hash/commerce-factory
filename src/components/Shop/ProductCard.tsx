@@ -1,71 +1,81 @@
-"use client";
-
 import Image from "next/image";
-import { formatDistanceToNow } from "date-fns";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import type { PostItem } from "@/lib/types/PostItem";
-import { useTranslations } from "next-intl";
+import Link from "next/link";
+import type { Product } from "@/lib/types/types";
+import { getProductColors, getProductStartingPrice } from "@/lib/utils";
 
-export default function ProductCard({ post }: { post: PostItem }) {
-  const t = useTranslations("ShopPage.ProductCard");
+export default function ProductCard({ product }: { product: Product }) {
+  const coverImage = product.variants[0]?.images[0] ?? null;
+  const hoverImage = product.variants[0]?.images[1] ?? null; // ← second image
+  const startingPrice = getProductStartingPrice(product);
+  const colors = getProductColors(product);
 
   return (
-    <Card key={post.id} className="overflow-hidden">
-      <CardHeader className="pb-3">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <CardTitle>{post.title}</CardTitle>
-            <CardDescription>
-              {post.description ?? t("noDescription")}
-            </CardDescription>
+    <Link href={`/shop/${product.id}`} className="group block">
+      <div className="bg-muted relative aspect-[3/4] w-full overflow-hidden">
+        {coverImage ? (
+          <>
+            <Image
+              src={coverImage}
+              alt={product.title}
+              fill
+              className={`object-cover transition-opacity duration-500 ${
+                hoverImage ? "group-hover:opacity-0" : "group-hover:scale-105"
+              }`}
+              sizes="(max-width: 640px) 50vw, 33vw"
+            />
+            {hoverImage && (
+              <Image
+                src={hoverImage}
+                alt={product.title}
+                fill
+                className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                sizes="(max-width: 640px) 50vw, 33vw"
+              />
+            )}
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <span className="text-muted-foreground/40 text-xs tracking-widest uppercase">
+              No image
+            </span>
           </div>
-          {post.price != null && (
-            <div className="text-right">
-              <p className="text-lg font-semibold">${post.price.toFixed(2)}</p>
-              <p className="text-muted-foreground text-xs">
-                Posted{" "}
-                {formatDistanceToNow(new Date(post.createdAt), {
-                  addSuffix: true,
-                })}
-              </p>
+        )}
+      </div>
+      <div className="mt-3 space-y-1 px-0.5">
+        {product.brand && (
+          <p className="text-muted-foreground text-[10px] tracking-widest uppercase">
+            {product.brand}
+          </p>
+        )}
+        <p className="text-foreground text-sm">{product.title}</p>
+        <div className="flex items-center justify-between">
+          {startingPrice != null && (
+            <p className="text-muted-foreground text-sm">
+              €
+              {startingPrice.toLocaleString("de-DE", {
+                minimumFractionDigits: 2,
+              })}
+            </p>
+          )}
+          {colors.length > 1 && (
+            <div className="flex gap-1">
+              {colors.slice(0, 4).map((c, i) => (
+                <span
+                  key={i}
+                  title={c.color}
+                  className="border-border h-3 w-3 rounded-full border"
+                  style={{ backgroundColor: c.colorHex ?? "#888" }}
+                />
+              ))}
+              {colors.length > 4 && (
+                <span className="text-muted-foreground text-[10px]">
+                  +{colors.length - 4}
+                </span>
+              )}
             </div>
           )}
         </div>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        {post.imageUrl ? (
-          <div className="relative h-72 w-full overflow-hidden rounded-3xl bg-slate-100">
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        ) : (
-          <div className="border-border bg-muted text-muted-foreground flex h-72 items-center justify-center rounded-3xl border border-dashed text-sm">
-            {t("noImage")}
-          </div>
-        )}
-
-        <div className="text-muted-foreground flex flex-wrap gap-2 text-sm">
-          <span className="bg-muted rounded-full px-3 py-1">
-            ID: {post.id.slice(0, 8)}
-          </span>
-          <span className="bg-muted rounded-full px-3 py-1">
-            Created{" "}
-            {formatDistanceToNow(new Date(post.createdAt), {
-              addSuffix: true,
-            })}
-          </span>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </Link>
   );
 }
