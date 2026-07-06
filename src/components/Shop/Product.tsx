@@ -1,20 +1,24 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, ChevronRight, Plus, Minus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Minus, X } from "lucide-react";
 import type {
   Product,
   Product_Variant,
   Product_Variant_Size,
 } from "generated/prisma";
 
-type FullProduct = Product & {
+export type FullProduct = Product & {
   variants: (Product_Variant & { sizes: Product_Variant_Size[] })[];
 };
+
+/** Local object URLs (admin preview) can't go through the Next image optimizer. */
+const isLocalPreview = (src: string) => src.startsWith("blob:");
 
 export function Product({ product }: { product: FullProduct }) {
   const [activeVariantId, setActiveVariantId] = useState(
@@ -24,6 +28,7 @@ export function Product({ product }: { product: FullProduct }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [qty, setQty] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const variant =
     product.variants.find((v) => v.id === activeVariantId) ??
@@ -49,7 +54,31 @@ export function Product({ product }: { product: FullProduct }) {
     setActiveSizeId(null);
     setImageIndex(0);
     setQty(1);
+    setLightboxIndex(null);
   }
+
+  // Lightbox: lock page scroll and handle keyboard while open.
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setLightboxIndex(null);
+      if (e.key === "ArrowRight")
+        setLightboxIndex((i) => (i === null ? i : (i + 1) % images.length));
+      if (e.key === "ArrowLeft")
+        setLightboxIndex((i) =>
+          i === null ? i : (i - 1 + images.length) % images.length,
+        );
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [lightboxIndex, images.length]);
+
+  const lightboxImage = lightboxIndex !== null ? images[lightboxIndex] : null;
 
   function handleAddToCart() {
     if (!activeSizeId || outOfStock) return;
@@ -63,16 +92,18 @@ export function Product({ product }: { product: FullProduct }) {
   return (
     <div className="min-h-screen bg-[#f5f4f0] font-sans text-[#1a1a1a]">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-[1fr_480px]">
-        <div className="relative bg-[#ebe9e4]">
-          <div className="relative aspect-[4/5] w-full lg:sticky lg:top-0 lg:aspect-auto lg:h-screen">
+        {/* ── Image gallery — scrolls naturally, panel on the right stays sticky ── */}
+        <div className="bg-[#ebe9e4]">
+          <div className="relative aspect-[4/5] w-full lg:hidden">
             {currentImage ? (
               <Image
                 src={currentImage}
                 alt={`${product.title} — view ${imageIndex + 1}`}
                 fill
                 priority={imageIndex === 0}
-                className="object-cover object-center transition-opacity duration-300"
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                unoptimized={isLocalPreview(currentImage)}
+                className="object-cover object-center"
+                sizes="100vw"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
@@ -117,32 +148,38 @@ export function Product({ product }: { product: FullProduct }) {
               </div>
             )}
           </div>
-          {images.length > 1 && (
-            <div className="hidden gap-2 p-3 lg:flex lg:flex-wrap">
-              {images.map((src, i) => (
+
+          {/* Desktop: shots stacked one under another, click to enlarge */}
+          <div className="hidden gap-4 p-4 lg:grid lg:grid-cols-1">
+            {images.length > 0 ? (
+              images.map((src, i) => (
                 <button
                   key={i}
-                  onClick={() => setImageIndex(i)}
-                  className={cn(
-                    "relative h-20 w-16 overflow-hidden rounded transition",
-                    i === imageIndex
-                      ? "ring-2 ring-[#1a1a1a]"
-                      : "opacity-60 hover:opacity-90",
-                  )}
+                  onClick={() => setLightboxIndex(i)}
+                  className="group relative mx-auto aspect-[4/5] w-full max-w-xl cursor-zoom-in overflow-hidden bg-[#e3e1dc]"
+                  aria-label={`Enlarge image ${i + 1}`}
                 >
                   <Image
                     src={src}
-                    alt={`Thumbnail ${i + 1}`}
+                    alt={`${product.title} — view ${i + 1}`}
                     fill
-                    className="object-cover"
-                    sizes="64px"
+                    priority={i === 0}
+                    unoptimized={isLocalPreview(src)}
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="(max-width: 1536px) 40vw, 576px"
                   />
                 </button>
-              ))}
-            </div>
-          )}
+              ))
+            ) : (
+              <div className="flex aspect-[4/5] items-center justify-center">
+                <span className="text-sm tracking-widest text-[#999] uppercase">
+                  No image
+                </span>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col px-6 py-10 lg:overflow-y-auto lg:px-10 lg:py-16">
+        <div className="flex flex-col px-6 py-10 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:px-10 lg:py-16">
           <div className="mb-3 flex items-center gap-2">
             {product.brand && (
               <span className="text-[11px] font-semibold tracking-[0.2em] text-[#888] uppercase">
@@ -175,24 +212,33 @@ export function Product({ product }: { product: FullProduct }) {
                   </span>
                 )}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {product.variants.map((v) => (
                   <button
                     key={v.id}
                     onClick={() => handleVariantChange(v.id)}
                     title={v.color ?? ""}
                     className={cn(
-                      "relative h-9 w-9 rounded-full border-2 transition",
+                      "relative h-16 w-14 overflow-hidden rounded border transition",
                       activeVariantId === v.id
-                        ? "scale-110 border-[#1a1a1a]"
-                        : "border-transparent hover:border-[#aaa]",
+                        ? "border-[#1a1a1a] ring-1 ring-[#1a1a1a]"
+                        : "border-[#d5d3ce] opacity-70 hover:opacity-100",
                     )}
-                    style={{ backgroundColor: v.colorHex ?? "#ccc" }}
                   >
-                    {activeVariantId === v.id && (
-                      <span className="absolute inset-0 flex items-center justify-center">
-                        <span className="h-2 w-2 rounded-full bg-white/60" />
-                      </span>
+                    {v.images[0] ? (
+                      <Image
+                        src={v.images[0]}
+                        alt={v.color ?? `Variant ${v.id}`}
+                        fill
+                        unoptimized={isLocalPreview(v.images[0])}
+                        className="object-cover"
+                        sizes="56px"
+                      />
+                    ) : (
+                      <span
+                        className="block h-full w-full"
+                        style={{ backgroundColor: v.colorHex ?? "#ccc" }}
+                      />
                     )}
                   </button>
                 ))}
@@ -330,6 +376,76 @@ export function Product({ product }: { product: FullProduct }) {
           </div>
         </div>
       </div>
+
+      {/* Lightbox — portal so it covers everything, including sticky bars */}
+      {lightboxImage &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-sm"
+            onClick={() => setLightboxIndex(null)}
+          >
+            <button
+              onClick={() => setLightboxIndex(null)}
+              className="absolute top-4 right-4 z-[210] rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/25"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxIndex(
+                      (i) =>
+                        i === null
+                          ? i
+                          : (i - 1 + images.length) % images.length,
+                    );
+                  }}
+                  className="absolute left-4 z-[210] rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/25"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxIndex(
+                      (i) => (i === null ? i : (i + 1) % images.length),
+                    );
+                  }}
+                  className="absolute right-4 z-[210] rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/25"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            )}
+
+            <div
+              className="relative h-[90dvh] w-[90vw]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={lightboxImage}
+                alt={`${product.title} — enlarged view ${lightboxIndex! + 1}`}
+                fill
+                unoptimized={isLocalPreview(lightboxImage)}
+                className="object-contain"
+                sizes="90vw"
+              />
+            </div>
+
+            {images.length > 1 && (
+              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs tracking-[0.2em] text-white/70">
+                {lightboxIndex! + 1} / {images.length}
+              </p>
+            )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

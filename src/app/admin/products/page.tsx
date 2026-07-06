@@ -60,7 +60,7 @@ export default function ProductsPage() {
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
-            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-6 pb-4 text-xs tracking-[0.15em] text-gray-400 uppercase">
+            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-6 pr-15 pb-4 text-xs tracking-[0.15em] text-gray-400 uppercase">
               <span>Product</span>
               <span>Brand</span>
               <span>Category</span>

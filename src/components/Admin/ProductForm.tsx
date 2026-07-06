@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Plus, Upload, X, ArrowLeft } from "lucide-react";
 import { uploadToBlob } from "@/lib/utils";
 import { api } from "@/trpc/react";
+import ProductPreview from "./ProductPreview";
 
 type SizeStock = { size: string; quantity: number };
 type ImagePreview = { file?: File; url: string };
@@ -217,7 +218,6 @@ export default function ProductForm({ productId }: Props) {
       </div>
 
       <div className="mx-auto max-w-4xl space-y-12 px-8 py-12">
-        {/* Basic Info */}
         <section>
           <SectionLabel>Basic Information</SectionLabel>
           <div className="space-y-4">
@@ -258,8 +258,6 @@ export default function ProductForm({ productId }: Props) {
             </div>
           </div>
         </section>
-
-        {/* Variants toggle */}
         <section>
           <div className="border-border flex items-center justify-between border-y py-5">
             <div>
@@ -285,8 +283,6 @@ export default function ProductForm({ productId }: Props) {
             </button>
           </div>
         </section>
-
-        {/* Variants */}
         <section className="space-y-8">
           <SectionLabel>
             {multipleVariants ? "Variants" : "Pricing, Sizes & Images"}
@@ -303,7 +299,6 @@ export default function ProductForm({ productId }: Props) {
               removeVariant={removeVariant}
             />
           ))}
-
           {multipleVariants && (
             <button
               onClick={addVariant}
@@ -314,8 +309,6 @@ export default function ProductForm({ productId }: Props) {
             </button>
           )}
         </section>
-
-        {/* Error + Submit */}
         {error && (
           <p className="border-destructive/20 bg-destructive/10 text-destructive border px-4 py-3 text-sm">
             {error}
@@ -323,6 +316,20 @@ export default function ProductForm({ productId }: Props) {
         )}
 
         <div className="border-border flex items-center justify-end gap-4 border-t pt-8">
+          <ProductPreview
+            title={title}
+            description={description}
+            brand={brand}
+            category={category}
+            variants={variants.map((v) => ({
+              id: v.id,
+              color: v.color,
+              colorHex: v.colorHex,
+              price: v.price,
+              imageUrls: v.imagePreviews.map((p) => p.url),
+              sizes: v.sizes,
+            }))}
+          />
           <button
             onClick={() => router.back()}
             className="text-muted-foreground hover:text-foreground px-6 py-3 text-xs tracking-[0.15em] uppercase transition-colors"
