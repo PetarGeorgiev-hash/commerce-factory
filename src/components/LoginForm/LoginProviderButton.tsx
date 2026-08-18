@@ -21,7 +21,7 @@ const LoginProviderButton = ({
     try {
       const result = await signIn(signInProvider, {
         callbackUrl: ROUTES.HOME,
-        redirect: true,
+        redirect: false,
       });
 
       if (result?.error) {

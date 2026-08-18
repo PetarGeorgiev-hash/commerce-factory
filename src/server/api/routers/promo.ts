@@ -1,10 +1,6 @@
 import z from "zod";
 import { TRPCError } from "@trpc/server";
-import {
-  adminProcedure,
-  createTRPCRouter,
-  publicProcedure,
-} from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 export function calcDiscount(
   type: "PERCENT" | "AMOUNT",
@@ -65,7 +61,7 @@ export const promoRouter = createTRPCRouter({
       const promo = await ctx.db.promoCode.findUnique({
         where: { code: input.code.toUpperCase() },
       });
-      if (!promo || !promo.active) return null;
+      if (!promo?.active) return null;
       return { code: promo.code, type: promo.type, value: promo.value };
     }),
 });

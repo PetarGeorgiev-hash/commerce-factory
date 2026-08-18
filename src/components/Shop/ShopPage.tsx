@@ -14,6 +14,7 @@ import ShopFilterBar from "./ShopFilterBar";
 import ShopPageError from "./ShopPageError";
 import NoProducts from "./NoProducts";
 import ProductCard from "./ProductCard";
+import type { Product, ProductVariant } from "@/lib/types/types";
 
 export default function ShopPage() {
   const t = useTranslations("ShopPage");
@@ -37,12 +38,15 @@ export default function ShopPage() {
 
   // Every colorway gets its own tile, boutique-style — variants are visible
   // straight from the list instead of hiding behind the product page.
-  const visibleCards = useMemo(
+  const visibleCards = useMemo<
+    Array<{ product: Product; variant?: ProductVariant }>
+  >(
     () =>
-      visibleProducts.flatMap((product) =>
-        product.variants.length > 0
-          ? product.variants.map((variant) => ({ product, variant }))
-          : [{ product, variant: undefined }],
+      visibleProducts.flatMap(
+        (product): Array<{ product: Product; variant?: ProductVariant }> =>
+          product.variants.length > 0
+            ? product.variants.map((variant) => ({ product, variant }))
+            : [{ product, variant: undefined }],
       ),
     [visibleProducts],
   );

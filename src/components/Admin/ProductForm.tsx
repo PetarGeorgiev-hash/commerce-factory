@@ -6,6 +6,7 @@ import { Plus, Upload, X, ArrowLeft } from "lucide-react";
 import { uploadToBlob } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import ProductPreview from "./ProductPreview";
+import Image from "next/image";
 
 type SizeStock = { size: string; quantity: number };
 type ImagePreview = { file?: File; url: string };
@@ -93,14 +94,14 @@ export default function ProductForm({ productId }: Props) {
   const utils = api.useUtils();
 
   const createProduct = api.product.create.useMutation({
-    onSuccess: () => router.push("/admin/products"),
+    onSuccess: () => void router.push("/admin/products"),
     onError: (err) => setError(err.message),
   });
 
   const updateProduct = api.product.update.useMutation({
     onSuccess: () => {
-      utils.product.getById.invalidate({ id: productId });
-      router.push("/admin/products");
+      void utils.product.getById.invalidate({ id: productId });
+      void router.push("/admin/products");
     },
     onError: (err) => setError(err.message),
   });
@@ -113,7 +114,11 @@ export default function ProductForm({ productId }: Props) {
       return updated;
     });
   };
-  const updateVariant = (index: number, field: keyof Variant, value: any) =>
+  const updateVariant = (
+    index: number,
+    field: keyof Variant,
+    value: Variant[keyof Variant],
+  ) =>
     setVariants((p) =>
       p.map((v, i) => (i === index ? { ...v, [field]: value } : v)),
     );
@@ -165,7 +170,7 @@ export default function ProductForm({ productId }: Props) {
         variants: uploadedVariants,
       };
       if (isEditing) {
-        await updateProduct.mutateAsync({ id: productId!, ...payload });
+        await updateProduct.mutateAsync({ id: productId, ...payload });
       } else {
         await createProduct.mutateAsync(payload);
       }
@@ -176,7 +181,9 @@ export default function ProductForm({ productId }: Props) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ urls: uploadedUrls }),
-        }).catch(() => {});
+        }).catch((deleteError) =>
+          console.error("Failed to clean up uploaded blobs:", deleteError),
+        );
       }
     } finally {
       setIsSubmitting(false);
@@ -202,7 +209,7 @@ export default function ProductForm({ productId }: Props) {
       <div className="border-border border-b px-8 py-8">
         <div className="mx-auto max-w-4xl">
           <button
-            onClick={() => router.back()}
+            onClick={() => void router.back()}
             className="text-muted-foreground hover:text-foreground mb-6 flex items-center gap-2 text-xs tracking-[0.15em] uppercase transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
@@ -331,13 +338,13 @@ export default function ProductForm({ productId }: Props) {
             }))}
           />
           <button
-            onClick={() => router.back()}
+            onClick={() => void router.back()}
             className="text-muted-foreground hover:text-foreground px-6 py-3 text-xs tracking-[0.15em] uppercase transition-colors"
           >
             Cancel
           </button>
           <button
-            onClick={handleSubmit}
+            onClick={() => void handleSubmit()}
             disabled={isSubmitting}
             className="bg-primary text-primary-foreground px-8 py-3 text-xs tracking-[0.15em] uppercase transition-opacity hover:opacity-70 disabled:opacity-30"
           >
@@ -392,7 +399,11 @@ function VariantCard({
   index: number;
   showColor: boolean;
   canRemove: boolean;
-  updateVariant: (i: number, f: keyof Variant, v: any) => void;
+  updateVariant: (
+    i: number,
+    f: keyof Variant,
+    v: Variant[keyof Variant],
+  ) => void;
   removeVariant: (i: number) => void;
 }) {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
@@ -455,8 +466,24 @@ function VariantCard({
     field: "size" | "quantity",
     value: string | number,
   ) => {
+    const current = variant.sizes[i];
+
+    if (!current) return;
+
     const updated = [...variant.sizes];
-    updated[i] = { ...updated[i]!, [field]: value } as SizeStock;
+
+    if (field === "size" && typeof value === "string") {
+      updated[i] = {
+        ...current,
+        size: value,
+      };
+    } else if (field === "quantity" && typeof value === "number") {
+      updated[i] = {
+        ...current,
+        quantity: value,
+      };
+    }
+
     updateVariant(index, "sizes", updated);
   };
 
@@ -501,7 +528,7 @@ function VariantCard({
                 <div className="flex gap-2">
                   <input
                     type="color"
-                    value={variant.colorHex || "#000000"}
+                    value={variant.colorHex ?? "#000000"}
                     onChange={(e) =>
                       updateVariant(index, "colorHex", e.target.value)
                     }
@@ -612,13 +639,15 @@ function VariantCard({
                   e.preventDefault();
                   setOverIndex(i);
                 }}
-                onDragLeave={() => setOverIndex(null)}
+                onDragLeave={() => {
+                  setOverIndex(null);
+                }}
                 onDrop={() => handleDrop(i)}
                 className={`group relative aspect-square cursor-grab overflow-hidden border-2 transition-colors ${
                   overIndex === i ? "border-foreground" : "border-transparent"
                 } ${i === 0 ? "col-span-2 row-span-2" : ""}`}
               >
-                <img
+                <Image
                   src={preview.url}
                   alt=""
                   className="h-full w-full object-cover"

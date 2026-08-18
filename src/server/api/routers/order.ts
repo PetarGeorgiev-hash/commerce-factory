@@ -1,10 +1,6 @@
 import z from "zod";
 import { TRPCError } from "@trpc/server";
-import {
-  adminProcedure,
-  createTRPCRouter,
-  publicProcedure,
-} from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 import { sendOrderEmails } from "@/server/email/order-notification";
 import { calcDiscount } from "./promo";
 import type { OrderStatus } from "../../../../generated/prisma";
@@ -43,7 +39,10 @@ export const orderRouter = createTRPCRouter({
       // Collapse duplicate size rows so one conditional decrement covers each size.
       const qtyBySize = new Map<string, number>();
       for (const item of input.items) {
-        qtyBySize.set(item.sizeId, (qtyBySize.get(item.sizeId) ?? 0) + item.qty);
+        qtyBySize.set(
+          item.sizeId,
+          (qtyBySize.get(item.sizeId) ?? 0) + item.qty,
+        );
       }
 
       // Read product data outside the transaction — on serverless Postgres a
@@ -78,7 +77,7 @@ export const orderRouter = createTRPCRouter({
         promo = await ctx.db.promoCode.findUnique({
           where: { code: input.promoCode.toUpperCase() },
         });
-        if (!promo || !promo.active) {
+        if (!promo?.active) {
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "INVALID_PROMO",

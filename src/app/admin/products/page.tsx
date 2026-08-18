@@ -7,6 +7,7 @@ import { Pencil, Trash2, Plus } from "lucide-react";
 import { ROUTES } from "@/lib/constants/routes";
 import LoadingText from "@/components/LoadingText";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -74,7 +75,7 @@ export default function ProductsPage() {
               >
                 <div className="flex items-center gap-4">
                   {product.variants[0]?.images[0] ? (
-                    <img
+                    <Image
                       src={product.variants[0].images[0]}
                       alt={product.title}
                       className="h-14 w-14 object-cover grayscale transition-all group-hover:grayscale-0"

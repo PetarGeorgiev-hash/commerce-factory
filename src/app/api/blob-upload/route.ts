@@ -1,15 +1,14 @@
 import { auth } from "@/server/auth";
 import { put } from "@vercel/blob";
-import { useSession } from "next-auth/react";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
-const MAX_SIZE_BYTES = 15 * 1024 * 1024; // 5 MB
+const MAX_SIZE_BYTES = 15 * 1024 * 1024; // 15 MB
 
 export async function POST(req: Request) {
   const session = await auth();
-  if (!session || session.user.role !== "ADMIN") {
-    return new Response("Unauthorized", { status: 401 });
-  }
+if (!session?.user || session.user?.role !== "ADMIN") {
+  return new Response("Unauthorized", { status: 401 });
+}
 
   const { searchParams } = new URL(req.url);
   const filename = searchParams.get("filename");

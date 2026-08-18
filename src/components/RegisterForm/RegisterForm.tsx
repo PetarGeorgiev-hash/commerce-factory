@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -50,26 +50,20 @@ const RegisterForm = () => {
     try {
       const result = await register(data);
 
-      if (result.error) {
+      if ("error" in result) {
         setError(result.error);
         setIsLoading(false);
         return;
       }
 
-      if (!result.error) {
+      if (!("error" in result)) {
         // Sign in the user directly with credentials
-        const signInResult = await signIn("credentials", {
+        await signIn("credentials", {
           email: data.email,
           password: data.password,
           redirect: true,
           callbackUrl: ROUTES.HOME,
         });
-
-        if (signInResult?.error) {
-          setError(t("failedToSignInAfterRegistration"));
-          setIsLoading(false);
-          return;
-        }
       }
     } catch (err) {
       console.error("Registration error:", err);
