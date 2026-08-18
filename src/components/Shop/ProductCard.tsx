@@ -1,16 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/types/types";
+import type { Product, ProductVariant } from "@/lib/types/types";
 import { getProductColors, getProductStartingPrice } from "@/lib/utils";
 
-export default function ProductCard({ product }: { product: Product }) {
-  const coverImage = product.variants[0]?.images[0] ?? null;
-  const hoverImage = product.variants[0]?.images[1] ?? null; // ← second image
-  const startingPrice = getProductStartingPrice(product);
-  const colors = getProductColors(product);
+export default function ProductCard({
+  product,
+  variant,
+}: {
+  product: Product;
+  /** When set, the card represents this specific colorway. */
+  variant?: ProductVariant;
+}) {
+  const activeVariant = variant ?? product.variants[0];
+  const coverImage = activeVariant?.images[0] ?? null;
+  const hoverImage = activeVariant?.images[1] ?? null; // ← second image
+  const startingPrice = variant
+    ? variant.price
+    : getProductStartingPrice(product);
+  const colors = variant ? [] : getProductColors(product);
+  const href = variant
+    ? `/shop/${product.id}?variant=${variant.id}`
+    : `/shop/${product.id}`;
 
   return (
-    <Link href={`/shop/${product.id}`} className="group block">
+    <Link href={href} className="group block">
       <div className="bg-muted relative aspect-[3/4] w-full overflow-hidden">
         {coverImage ? (
           <>
@@ -48,6 +61,17 @@ export default function ProductCard({ product }: { product: Product }) {
           </p>
         )}
         <p className="text-foreground text-sm">{product.title}</p>
+        {variant?.color && (
+          <p className="text-muted-foreground flex items-center gap-1.5 text-[11px]">
+            {variant.colorHex && (
+              <span
+                className="border-border h-2.5 w-2.5 rounded-full border"
+                style={{ backgroundColor: variant.colorHex }}
+              />
+            )}
+            {variant.color}
+          </p>
+        )}
         <div className="flex items-center justify-between">
           {startingPrice != null && (
             <p className="text-muted-foreground text-sm">

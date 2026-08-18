@@ -6,6 +6,7 @@
     "contact": "Контакти",
     "shop": "Магазин",
     "categories": "Категории",
+    "admin": "Админ",
     "login": "Вход",
     "logout": "Изход",
     "signIn": "Вход",
@@ -131,5 +132,135 @@
   },
   "LangSwitchButton": {
     "language": "Език"
+  },
+  "Checkout": {
+    "eyebrow": "Поръчка",
+    "title": "Доставка",
+    "emptyBag": "Вашата чанта е празна.",
+    "backToShop": "Обратно към магазина",
+    "contact": {
+      "title": "Контакт",
+      "email": "Имейл",
+      "phone": "Телефон",
+      "phonePlaceholder": "+359 88 123 4567"
+    },
+    "delivery": {
+      "title": "Доставка",
+      "address": "Доставка до адрес",
+      "addressDescription": "Куриерът доставя до вашата врата",
+      "speedy": "Офис на Speedy",
+      "speedyDescription": "Вземете от офис на Speedy",
+      "econt": "Офис на Econt",
+      "econtDescription": "Вземете от офис на Econt",
+      "firstName": "Име",
+      "lastName": "Фамилия",
+      "city": "Град",
+      "postalCode": "Пощенски код",
+      "addressLabel": "Адрес",
+      "addressPlaceholder": "Улица, номер, вход, етаж, апартамент",
+      "officeLabel": "Куриерски офис",
+      "officePlaceholder": "Име или адрес на офиса",
+      "note": "Бележка към поръчката (по избор)",
+      "notePlaceholder": "Нещо, което трябва да знаем?"
+    },
+    "payment": {
+      "title": "Плащане",
+      "cod": "Наложен платеж",
+      "codDescription": "Платете в брой или с карта на куриера при получаване. Доставка само в България."
+    },
+    "summary": {
+      "title": "Вашата поръчка",
+      "subtotal": "Междинна сума",
+      "shipping": "Доставка",
+      "shippingValue": "Таксува се от куриера",
+      "discount": "Отстъпка",
+      "total": "Общо"
+    },
+    "promo": {
+      "label": "Промо код",
+      "placeholder": "Въведете код",
+      "apply": "Приложи",
+      "applied": "Кодът {code} е приложен",
+      "remove": "Премахни",
+      "invalid": "Този код не е валиден",
+      "checking": "Проверка..."
+    },
+    "submit": "Завърши поръчката",
+    "submitting": "Изпращане на поръчката...",
+    "errors": {
+      "required": "Моля, попълнете всички задължителни полета.",
+      "fieldRequired": "Това поле е задължително",
+      "invalidEmail": "Въведете валиден имейл адрес",
+      "invalidPhone": "Въведете валиден телефонен номер",
+      "outOfStock": "{item} току-що се изчерпа. Премахнахме го от чантата ви.",
+      "unavailable": "Някои артикули вече не са налични. Моля, прегледайте чантата си.",
+      "generic": "Възникна грешка при изпращането на поръчката. Моля, опитайте отново."
+    },
+    "success": {
+      "eyebrow": "Благодарим ви",
+      "title": "Поръчката ви е изпратена",
+      "message": "Поръчка №{number} е приета и вече работим по нея. Ще се свържем с вас на {email}, за да потвърдим доставката.",
+      "continueShopping": "Продължи с пазаруването"
+    }
+  },
+  "AdminPromos": {
+    "eyebrow": "Админ",
+    "title": "Промо кодове",
+    "count": "{count, plural, =1 {1 код} other {# кода}}",
+    "empty": "Все още няма промо кодове",
+    "loading": "Зареждане на промо кодовете...",
+    "form": {
+      "title": "Нов промо код",
+      "code": "Код",
+      "codePlaceholder": "SUMMER20",
+      "type": "Тип",
+      "percent": "Процент (%)",
+      "amount": "Сума (€)",
+      "value": "Стойност",
+      "create": "Създай код",
+      "creating": "Създаване...",
+      "created": "Промо кодът е създаден",
+      "exists": "Код с това име вече съществува",
+      "error": "Кодът не можа да бъде създаден"
+    },
+    "list": {
+      "code": "Код",
+      "discount": "Отстъпка",
+      "used": "Използван",
+      "usedTimes": "{count, plural, =1 {1 път} other {# пъти}}",
+      "delete": "Изтрий",
+      "deleted": "Промо кодът е изтрит",
+      "deleteError": "Кодът не можа да бъде изтрит"
+    }
+  },
+  "AdminOrders": {
+    "eyebrow": "Админ",
+    "title": "Поръчки",
+    "count": "{count, plural, =1 {1 поръчка} other {# поръчки}}",
+    "empty": "Все още няма поръчки",
+    "loading": "Зареждане на поръчките...",
+    "cod": "Наложен платеж",
+    "note": "Бележка",
+    "discount": "Отстъпка",
+    "items": "{count, plural, =1 {1 артикул} other {# артикула}}",
+    "status": {
+      "PENDING": "Чакаща",
+      "DONE": "Изпълнена",
+      "CANCELLED": "Отказана",
+      "RETURNED": "Върната"
+    },
+    "deliveryType": {
+      "ADDRESS": "До адрес",
+      "SPEEDY_OFFICE": "Офис на Speedy",
+      "ECONT_OFFICE": "Офис на Econt"
+    },
+    "actions": {
+      "markDone": "Изпълнена",
+      "cancel": "Откажи поръчката",
+      "markReturned": "Върната",
+      "restockHint": "Наличността се възстановява автоматично",
+      "updated": "Поръчката е обновена",
+      "error": "Поръчката не можа да бъде обновена"
+    }
   }
 }

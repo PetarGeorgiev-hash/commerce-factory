@@ -11,12 +11,15 @@ import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/lib/constants/routes";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
 const UserDropdown = () => {
   const t = useTranslations("Navbar.UserDropdown");
+  const tNav = useTranslations("Navbar");
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
 
   const handleLogout = async () => {
     try {
@@ -37,6 +40,11 @@ const UserDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {isAdmin && (
+          <DropdownMenuItem className="cursor-pointer">
+            <Link href={ROUTES.ADMIN}>{tNav("admin")}</Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem className="cursor-pointer">
           <Link href={ROUTES.ACCOUNT}>{t("account")}</Link>
         </DropdownMenuItem>

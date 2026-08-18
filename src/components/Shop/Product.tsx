@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ChevronLeft, ChevronRight, Plus, Minus, X } from "lucide-react";
+import { useCart, formatPrice } from "@/components/Cart/CartContext";
 import type {
   Product,
   Product_Variant,
@@ -80,11 +81,32 @@ export function Product({ product }: { product: FullProduct }) {
 
   const lightboxImage = lightboxIndex !== null ? images[lightboxIndex] : null;
 
+  const { addItem, openCart } = useCart();
+
   function handleAddToCart() {
-    if (!activeSizeId || outOfStock) return;
-    // TODO: wire up your cart logic here
+    if (!variant || !activeSize || outOfStock) return;
+    addItem(
+      {
+        productId: product.id,
+        variantId: variant.id,
+        sizeId: activeSize.id,
+        title: product.title,
+        color: variant.color,
+        size: activeSize.size,
+        price: variant.price,
+        image: variant.images[0] ?? null,
+        maxStock: activeSize.stock,
+        availableSizes: sizes.map((s) => ({
+          id: s.id,
+          size: s.size,
+          stock: s.stock,
+        })),
+      },
+      qty,
+    );
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
+    openCart();
   }
 
   const currentImage = images[imageIndex];
@@ -93,7 +115,7 @@ export function Product({ product }: { product: FullProduct }) {
     <div className="min-h-screen bg-[#f5f4f0] font-sans text-[#1a1a1a]">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-[1fr_480px]">
         {/* ── Image gallery — scrolls naturally, panel on the right stays sticky ── */}
-        <div className="bg-[#ebe9e4]">
+        <div className="bg-white">
           <div className="relative aspect-[4/5] w-full lg:hidden">
             {currentImage ? (
               <Image
@@ -156,7 +178,7 @@ export function Product({ product }: { product: FullProduct }) {
                 <button
                   key={i}
                   onClick={() => setLightboxIndex(i)}
-                  className="group relative mx-auto aspect-[4/5] w-full max-w-xl cursor-zoom-in overflow-hidden bg-[#e3e1dc]"
+                  className="group relative mx-auto aspect-[4/5] w-full max-w-xl cursor-zoom-in overflow-hidden bg-white"
                   aria-label={`Enlarge image ${i + 1}`}
                 >
                   <Image
@@ -199,7 +221,7 @@ export function Product({ product }: { product: FullProduct }) {
             {product.title}
           </h1>
           <p className="mb-8 text-lg font-medium tracking-wide">
-            ${variant?.price.toFixed(2)}
+            {formatPrice(variant?.price ?? 0)}
           </p>
           <Separator className="mb-8 bg-[#e0deda]" />
           {product.variants.length > 1 && (
@@ -277,17 +299,13 @@ export function Product({ product }: { product: FullProduct }) {
                     )}
                   >
                     {s.size}
-                    {!sold && s.stock <= 3 && (
-                      <span className="absolute -top-1.5 -right-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-amber-400" />
-                    )}
                   </button>
                 );
               })}
             </div>
-            {sizes.some((s) => !s.stock || s.stock <= 3) && (
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] text-amber-600">
-                <span className="inline-block h-2 w-2 rounded-full bg-amber-400" />
-                Low stock on some sizes
+            {activeSize && activeSize.stock > 0 && activeSize.stock <= 3 && (
+              <p className="mt-2 text-[12px] text-amber-600">
+                Only {activeSize.stock} left in size {activeSize.size}
               </p>
             )}
           </div>
