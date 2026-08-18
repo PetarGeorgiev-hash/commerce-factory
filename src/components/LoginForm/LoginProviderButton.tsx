@@ -19,14 +19,10 @@ const LoginProviderButton = ({
   const handleLogin = async (signInProvider: string) => {
     setIsLoading(true);
     try {
-      const result = await signIn(signInProvider, {
+      await signIn(signInProvider, {
         callbackUrl: ROUTES.HOME,
-        redirect: false,
+        redirect: true,
       });
-
-      if (result?.error) {
-        toast.error("Login failed");
-      }
     } catch (error) {
       toast.error("Login failed", {
         description: (error as Error).message,
