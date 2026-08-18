@@ -13,5 +13,7 @@ export const ROUTES = {
   ORDERS: "/orders",
   ADMIN: "/admin",
   ADMIN_PRODUCTS: "/admin/products",
+  ADMIN_ORDERS: "/admin/orders",
+  ADMIN_PROMOS: "/admin/promocodes",
   ADMIN_CREATE_PRODUCT: "/admin/products/new",
 };

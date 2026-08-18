@@ -1,20 +1,10 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-//TODO export categories to a constants file with image url and href when available=
+//TODO export categories to a constants file with image url and href when available
 const categories = [
-  {
-    title: "Mens",
-    image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop",
-    href: "/mens",
-  },
-  {
-    title: "Womens",
-    image:
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop",
-    href: "/womens",
-  },
+  { title: "Mens", eyebrow: "Essentials", href: "/shop", bg: "#e0ddd6" },
+  { title: "Womens", eyebrow: "Essentials", href: "/shop", bg: "#d8d5ce" },
 ];
 
 export default function FeatureGridSection() {
@@ -25,27 +15,21 @@ export default function FeatureGridSection() {
         <Link
           key={item.title}
           href={item.href}
-          className="group relative h-195 overflow-hidden bg-[#efefeb]"
+          className="group relative aspect-[3/4] overflow-hidden md:aspect-[4/5]"
+          style={{ backgroundColor: item.bg }}
         >
-          {/* <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              className="object-cover transition duration-700 group-hover:scale-[1.03]"
-            /> */}
+          {/* <Image src={item.image} alt={item.title} fill
+              className="object-cover transition duration-700 group-hover:scale-[1.03]" /> */}
 
-          <div className="absolute inset-0 bg-black/5" />
-
-          <div className="absolute bottom-10 left-10 text-white">
-            <p className="mb-3 text-[11px] tracking-[0.35em] uppercase opacity-80">
-              Essentials
+          <div className="absolute bottom-8 left-6 text-[#1a1a1a] sm:bottom-10 sm:left-10">
+            <p className="mb-2 text-[10px] tracking-[0.35em] uppercase opacity-60 sm:mb-3 sm:text-[11px]">
+              {item.eyebrow}
             </p>
 
             <div className="flex items-center gap-3">
-              <h2 className="text-4xl font-light tracking-[0.12em] uppercase">
+              <h2 className="text-2xl font-light tracking-[0.12em] uppercase sm:text-4xl">
                 {item.title}
               </h2>
-
               <ChevronRight className="h-5 w-5 transition group-hover:translate-x-1" />
             </div>
           </div>

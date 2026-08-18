@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { api } from "@/trpc/react";
 import { ROUTES } from "@/lib/constants/routes";
@@ -16,11 +22,11 @@ const MAX_RESULTS = 6;
 const SearchBar = () => {
   const t = useTranslations("SearchBar");
   const router = useRouter();
-  const containerRef = useRef<HTMLFormElement>(null);
-  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
-  const enabled = query.trim().length >= MIN_QUERY_LENGTH;
+  const enabled = open && query.trim().length >= MIN_QUERY_LENGTH;
   const { data: products, isLoading } = api.product.getAll.useQuery(undefined, {
     enabled,
     staleTime: 60_000,
@@ -39,20 +45,29 @@ const SearchBar = () => {
       .slice(0, MAX_RESULTS);
   }, [enabled, products, query]);
 
-  // Close the dropdown when clicking outside of it.
+  // Focus the field when the panel opens; lock body scroll while open.
   useEffect(() => {
-    function onPointerDown(event: PointerEvent) {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-      }
+    if (!open) return;
+    inputRef.current?.focus();
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
     }
-    document.addEventListener("pointerdown", onPointerDown);
-    return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, []);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
-  function goTo(path: string) {
+  function close() {
     setOpen(false);
     setQuery("");
+  }
+
+  function goTo(path: string) {
+    close();
     router.push(path);
   }
 
@@ -67,95 +82,121 @@ const SearchBar = () => {
   }
 
   return (
-    <form
-      ref={containerRef}
-      onSubmit={handleSubmit}
-      className="relative order-last w-full basis-full md:order-none md:mx-6 md:max-w-sm md:flex-1 md:basis-auto"
-    >
-      <div className="relative w-full">
-        <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2 transform" />
-        <Input
-          type="search"
-          placeholder={t("placeholder")}
-          value={query}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            setOpen(event.target.value.trim().length >= MIN_QUERY_LENGTH);
-          }}
-          onFocus={() => setOpen(enabled)}
-          onKeyDown={(event) => {
-            if (event.key === "Escape") setOpen(false);
-          }}
-          className="pl-10"
-        />
-      </div>
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setOpen(true)}
+        aria-label="Search"
+        className="cursor-pointer"
+      >
+        <Search className="size-5" />
+      </Button>
 
       {open && (
-        <div className="border-border bg-background absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-md border shadow-lg">
-          {isLoading ? (
-            <p className="text-muted-foreground px-4 py-6 text-center text-sm">
-              {t("placeholder")}
-            </p>
-          ) : results.length === 0 ? (
-            <p className="text-muted-foreground px-4 py-6 text-center text-sm">
-              No results for “{query.trim()}”
-            </p>
-          ) : (
-            <ul>
-              {results.map((product) => {
-                const cover = getProductCoverImage(product);
-                const price = getProductStartingPrice(product);
-                return (
-                  <li key={product.id}>
-                    <button
-                      type="button"
-                      onClick={() => goTo(`${ROUTES.SHOP}/${product.id}`)}
-                      className="hover:bg-muted flex w-full items-center gap-3 px-3 py-2.5 text-left transition"
-                    >
-                      <div className="bg-muted relative h-14 w-11 shrink-0 overflow-hidden rounded">
-                        {cover && (
-                          <Image
-                            src={cover}
-                            alt={product.title}
-                            fill
-                            className="object-cover"
-                            sizes="44px"
-                          />
-                        )}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        {product.brand && (
-                          <p className="text-muted-foreground truncate text-[10px] tracking-widest uppercase">
-                            {product.brand}
-                          </p>
-                        )}
-                        <p className="truncate text-sm">{product.title}</p>
-                      </div>
-                      {price != null && (
-                        <p className="text-muted-foreground shrink-0 text-sm">
-                          €
-                          {price.toLocaleString("de-DE", {
-                            minimumFractionDigits: 2,
-                          })}
-                        </p>
-                      )}
-                    </button>
-                  </li>
-                );
-              })}
-              <li className="border-border border-t">
-                <button
-                  type="submit"
-                  className="text-muted-foreground hover:text-foreground w-full px-3 py-2.5 text-center text-xs tracking-[0.15em] uppercase transition"
-                >
-                  View all results
-                </button>
-              </li>
-            </ul>
-          )}
-        </div>
+        <>
+          {/* Backdrop */}
+          <button
+            aria-label="Close search"
+            onClick={close}
+            className="fixed inset-0 top-16 z-40 bg-black/30 backdrop-blur-sm"
+          />
+
+          {/* Panel drops from under the header */}
+          <div className="bg-background absolute top-full right-0 left-0 z-50 border-b shadow-lg">
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-4 lg:px-8"
+            >
+              <Search className="text-muted-foreground size-5 shrink-0" />
+              <input
+                ref={inputRef}
+                type="search"
+                placeholder={t("placeholder")}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="text-foreground placeholder:text-muted-foreground/60 flex-1 bg-transparent text-base tracking-wide outline-none"
+              />
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Close"
+                className="text-muted-foreground hover:text-foreground shrink-0 transition"
+              >
+                <X className="size-5" />
+              </button>
+            </form>
+
+            {query.trim().length >= MIN_QUERY_LENGTH && (
+              <div className="mx-auto max-h-[60dvh] max-w-3xl overflow-y-auto px-4 pb-4 lg:px-8">
+                {isLoading ? (
+                  <p className="text-muted-foreground py-6 text-center text-sm">
+                    Searching…
+                  </p>
+                ) : results.length === 0 ? (
+                  <p className="text-muted-foreground py-6 text-center text-sm">
+                    No results for “{query.trim()}”
+                  </p>
+                ) : (
+                  <ul className="divide-border divide-y border-t">
+                    {results.map((product) => {
+                      const cover = getProductCoverImage(product);
+                      const price = getProductStartingPrice(product);
+                      return (
+                        <li key={product.id}>
+                          <button
+                            type="button"
+                            onClick={() => goTo(`${ROUTES.SHOP}/${product.id}`)}
+                            className="hover:bg-muted flex w-full items-center gap-3 py-3 text-left transition"
+                          >
+                            <div className="bg-muted relative h-16 w-12 shrink-0 overflow-hidden">
+                              {cover && (
+                                <Image
+                                  src={cover}
+                                  alt={product.title}
+                                  fill
+                                  className="object-cover"
+                                  sizes="48px"
+                                />
+                              )}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              {product.brand && (
+                                <p className="text-muted-foreground truncate text-[10px] tracking-widest uppercase">
+                                  {product.brand}
+                                </p>
+                              )}
+                              <p className="truncate text-sm">{product.title}</p>
+                            </div>
+                            {price != null && (
+                              <p className="text-muted-foreground shrink-0 text-sm">
+                                €
+                                {price.toLocaleString("de-DE", {
+                                  minimumFractionDigits: 2,
+                                })}
+                              </p>
+                            )}
+                          </button>
+                        </li>
+                      );
+                    })}
+                    <li>
+                      <button
+                        type="button"
+                        onClick={handleSubmit}
+                        className="text-muted-foreground hover:text-foreground w-full py-3 text-center text-xs tracking-[0.2em] uppercase transition"
+                      >
+                        View all results
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+        </>
       )}
-    </form>
+    </>
   );
 };
 

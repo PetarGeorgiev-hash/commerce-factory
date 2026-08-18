@@ -35,10 +35,22 @@ export default function ShopPage() {
     return sortProducts(filterProducts(products, filters), sortOption);
   }, [products, filters, sortOption]);
 
+  // Every colorway gets its own tile, boutique-style — variants are visible
+  // straight from the list instead of hiding behind the product page.
+  const visibleCards = useMemo(
+    () =>
+      visibleProducts.flatMap((product) =>
+        product.variants.length > 0
+          ? product.variants.map((variant) => ({ product, variant }))
+          : [{ product, variant: undefined }],
+      ),
+    [visibleProducts],
+  );
+
   return (
     <div className="min-h-screen bg-[#f5f4f0] text-[#1a1a1a]">
       {/* Sticky filter/sort bar — sits right below the navbar (h-16). */}
-      <div className="sticky top-[125px] z-40 border-b border-[#e0deda]/60 shadow-[0_1px_8px_rgba(0,0,0,0.03)] md:top-16">
+      <div className="sticky top-16 z-40 border-b border-[#e0deda]/60 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
         <ShopFilterBar
           products={products ?? []}
           filters={filters}
@@ -62,8 +74,12 @@ export default function ShopPage() {
           <NoProducts />
         ) : (
           <div className="grid grid-cols-2 gap-x-3 gap-y-8 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-14">
-            {visibleProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {visibleCards.map(({ product, variant }) => (
+              <ProductCard
+                key={variant ? `${product.id}:${variant.id}` : product.id}
+                product={product}
+                variant={variant}
+              />
             ))}
           </div>
         )}

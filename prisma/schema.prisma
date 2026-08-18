@@ -2,107 +2,175 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
-    output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
-    USER
-    ADMIN
+  USER
+  ADMIN
 }
 
 // Necessary for Next auth
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? // @db.Text
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refresh_token_expires_in Int?
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Product {
-    id          String            @id @default(cuid())
-    title       String
-    description String?
-    brand       String?
-    category    String?
-    createdAt   DateTime          @default(now())
-    updatedAt   DateTime          @updatedAt
-    createdById String
-    createdBy   User              @relation("CreatedBy", fields: [createdById], references: [id])
-    deletedAt   DateTime?
-    deletedById String?
-    deletedBy   User?             @relation("DeletedBy", fields: [deletedById], references: [id])
-    variants    Product_Variant[]
+  id          String            @id @default(cuid())
+  title       String
+  description String?
+  brand       String?
+  category    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  createdById String
+  createdBy   User              @relation("CreatedBy", fields: [createdById], references: [id])
+  deletedAt   DateTime?
+  deletedById String?
+  deletedBy   User?             @relation("DeletedBy", fields: [deletedById], references: [id])
+  variants    Product_Variant[]
 }
 
 model Product_Variant {
-    id        String                 @id @default(cuid())
-    productId String
-    product   Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
-    color     String?
-    colorHex  String?
-    price     Float
-    images    String[]
-    sizes     Product_Variant_Size[]
-    createdAt DateTime               @default(now())
-    updatedAt DateTime               @updatedAt
+  id        String                 @id @default(cuid())
+  productId String
+  product   Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
+  color     String?
+  colorHex  String?
+  price     Float
+  images    String[]
+  sizes     Product_Variant_Size[]
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
 }
 
 model Product_Variant_Size {
-    id        String          @id @default(cuid())
-    variantId String
-    variant   Product_Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-    size      String // "EU 42", "UK 8", etc.
-    stock     Int             @default(0)
+  id         String          @id @default(cuid())
+  variantId  String
+  variant    Product_Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  size       String // "EU 42", "UK 8", etc.
+  stock      Int             @default(0)
+  orderItems OrderItem[]
 }
 
 model User {
-    id              String    @id @default(cuid())
-    name            String?
-    email           String?   @unique
-    password        String?
-    emailVerified   DateTime?
-    image           String?
-    accounts        Account[]
-    sessions        Session[]
-    role            Role      @default(USER)
-    products        Product[] @relation("CreatedBy")
-    deletedProducts Product[] @relation("DeletedBy")
+  id              String    @id @default(cuid())
+  name            String?
+  email           String?   @unique
+  password        String?
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  role            Role      @default(USER)
+  products        Product[] @relation("CreatedBy")
+  deletedProducts Product[] @relation("DeletedBy")
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
+}
+
+enum OrderStatus {
+  PENDING
+  DONE
+  CANCELLED
+  RETURNED
+}
+
+enum DeliveryType {
+  ADDRESS
+  SPEEDY_OFFICE
+  ECONT_OFFICE
+}
+
+enum DiscountType {
+  PERCENT
+  AMOUNT
+}
+
+model PromoCode {
+  id        String       @id @default(cuid())
+  code      String       @unique
+  type      DiscountType
+  value     Float
+  active    Boolean      @default(true)
+  usedCount Int          @default(0)
+  createdAt DateTime     @default(now())
+  orders    Order[]
+}
+
+model Order {
+  id            String       @id @default(cuid())
+  orderNumber   Int          @unique @default(autoincrement())
+  status        OrderStatus  @default(PENDING)
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  deliveryType  DeliveryType
+  city          String
+  postalCode    String?
+  address       String
+  note          String?
+  subtotal      Float
+  discount      Float        @default(0)
+  promoCodeId   String?
+  promoCode     PromoCode?   @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+  // Snapshot of the code as typed — survives promo code deletion.
+  promoCodeText String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id        String                @id @default(cuid())
+  orderId   String
+  order     Order                 @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  sizeId    String?
+  size      Product_Variant_Size? @relation(fields: [sizeId], references: [id], onDelete: SetNull)
+  title     String
+  color     String?
+  sizeLabel String
+  price     Float
+  qty       Int
+  image     String?
 }

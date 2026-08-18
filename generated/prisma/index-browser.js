@@ -191,6 +191,49 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.PromoCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  value: 'value',
+  active: 'active',
+  usedCount: 'usedCount',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  orderNumber: 'orderNumber',
+  status: 'status',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  deliveryType: 'deliveryType',
+  city: 'city',
+  postalCode: 'postalCode',
+  address: 'address',
+  note: 'note',
+  subtotal: 'subtotal',
+  discount: 'discount',
+  promoCodeId: 'promoCodeId',
+  promoCodeText: 'promoCodeText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  sizeId: 'sizeId',
+  title: 'title',
+  color: 'color',
+  sizeLabel: 'sizeLabel',
+  price: 'price',
+  qty: 'qty',
+  image: 'image'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -210,6 +253,24 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.DiscountType = exports.$Enums.DiscountType = {
+  PERCENT: 'PERCENT',
+  AMOUNT: 'AMOUNT'
+};
+
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  PENDING: 'PENDING',
+  DONE: 'DONE',
+  CANCELLED: 'CANCELLED',
+  RETURNED: 'RETURNED'
+};
+
+exports.DeliveryType = exports.$Enums.DeliveryType = {
+  ADDRESS: 'ADDRESS',
+  SPEEDY_OFFICE: 'SPEEDY_OFFICE',
+  ECONT_OFFICE: 'ECONT_OFFICE'
+};
+
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
@@ -217,7 +278,10 @@ exports.Prisma.ModelName = {
   Product_Variant: 'Product_Variant',
   Product_Variant_Size: 'Product_Variant_Size',
   User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  PromoCode: 'PromoCode',
+  Order: 'Order',
+  OrderItem: 'OrderItem'
 };
 
 /**

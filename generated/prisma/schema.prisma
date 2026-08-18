@@ -78,11 +78,12 @@ model Product_Variant {
 }
 
 model Product_Variant_Size {
-  id        String          @id @default(cuid())
-  variantId String
-  variant   Product_Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  size      String // "EU 42", "UK 8", etc.
-  stock     Int             @default(0)
+  id         String          @id @default(cuid())
+  variantId  String
+  variant    Product_Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  size       String // "EU 42", "UK 8", etc.
+  stock      Int             @default(0)
+  orderItems OrderItem[]
 }
 
 model User {
@@ -105,4 +106,71 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum OrderStatus {
+  PENDING
+  DONE
+  CANCELLED
+  RETURNED
+}
+
+enum DeliveryType {
+  ADDRESS
+  SPEEDY_OFFICE
+  ECONT_OFFICE
+}
+
+enum DiscountType {
+  PERCENT
+  AMOUNT
+}
+
+model PromoCode {
+  id        String       @id @default(cuid())
+  code      String       @unique
+  type      DiscountType
+  value     Float
+  active    Boolean      @default(true)
+  usedCount Int          @default(0)
+  createdAt DateTime     @default(now())
+  orders    Order[]
+}
+
+model Order {
+  id            String       @id @default(cuid())
+  orderNumber   Int          @unique @default(autoincrement())
+  status        OrderStatus  @default(PENDING)
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  deliveryType  DeliveryType
+  city          String
+  postalCode    String?
+  address       String
+  note          String?
+  subtotal      Float
+  discount      Float        @default(0)
+  promoCodeId   String?
+  promoCode     PromoCode?   @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+  // Snapshot of the code as typed — survives promo code deletion.
+  promoCodeText String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id        String                @id @default(cuid())
+  orderId   String
+  order     Order                 @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  sizeId    String?
+  size      Product_Variant_Size? @relation(fields: [sizeId], references: [id], onDelete: SetNull)
+  title     String
+  color     String?
+  sizeLabel String
+  price     Float
+  qty       Int
+  image     String?
 }

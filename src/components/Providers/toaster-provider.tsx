@@ -1,23 +1,24 @@
 "use client";
 
 import { Toaster } from "sonner";
+import { useTheme } from "next-themes";
 
 export function ToasterProvider({
   position = "bottom-right",
 }: {
   position?: "top-right" | "bottom-right" | "top-left" | "bottom-left";
 }) {
+  const { resolvedTheme } = useTheme();
+
   return (
     <Toaster
       position={position}
+      richColors
+      theme={resolvedTheme === "dark" ? "dark" : "light"}
       toastOptions={{
         style: {
-          background: "hsl(var(--background))",
-          color: "hsl(var(--foreground))",
-          border: "1px solid hsl(var(--border))",
-          fontSize: "1rem",
+          fontSize: "0.875rem",
           padding: "1rem",
-          width: "400px",
         },
         className: "toaster-custom",
       }}

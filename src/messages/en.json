@@ -6,6 +6,7 @@
     "contact": "Contact",
     "shop": "Shop",
     "categories": "Categories",
+    "admin": "Admin",
     "login": "Login",
     "logout": "Logout",
     "signIn": "Sign In",
@@ -131,5 +132,135 @@
   },
   "LangSwitchButton": {
     "language": "Language"
+  },
+  "Checkout": {
+    "eyebrow": "Checkout",
+    "title": "Delivery",
+    "emptyBag": "Your bag is empty.",
+    "backToShop": "Back to shop",
+    "contact": {
+      "title": "Contact",
+      "email": "Email",
+      "phone": "Phone",
+      "phonePlaceholder": "+359 88 123 4567"
+    },
+    "delivery": {
+      "title": "Delivery",
+      "address": "Delivery to address",
+      "addressDescription": "Courier delivers to your door",
+      "speedy": "Speedy office",
+      "speedyDescription": "Pick up from a Speedy office",
+      "econt": "Econt office",
+      "econtDescription": "Pick up from an Econt office",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "city": "City",
+      "postalCode": "Postal code",
+      "addressLabel": "Street address",
+      "addressPlaceholder": "Street, number, entrance, floor, apartment",
+      "officeLabel": "Courier office",
+      "officePlaceholder": "Office name or address",
+      "note": "Order note (optional)",
+      "notePlaceholder": "Anything we should know?"
+    },
+    "payment": {
+      "title": "Payment",
+      "cod": "Cash on delivery",
+      "codDescription": "Pay in cash or by card to the courier when your order arrives. Delivery within Bulgaria only."
+    },
+    "summary": {
+      "title": "Order summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "shippingValue": "Charged by courier",
+      "discount": "Discount",
+      "total": "Total"
+    },
+    "promo": {
+      "label": "Promo code",
+      "placeholder": "Enter code",
+      "apply": "Apply",
+      "applied": "Code {code} applied",
+      "remove": "Remove",
+      "invalid": "This code is not valid",
+      "checking": "Checking..."
+    },
+    "submit": "Complete order",
+    "submitting": "Sending order...",
+    "errors": {
+      "required": "Please fill in all required fields.",
+      "fieldRequired": "This field is required",
+      "invalidEmail": "Enter a valid email address",
+      "invalidPhone": "Enter a valid phone number",
+      "outOfStock": "{item} just sold out. It was removed from your bag.",
+      "unavailable": "Some items are no longer available. Please review your bag.",
+      "generic": "Something went wrong while sending your order. Please try again."
+    },
+    "success": {
+      "eyebrow": "Thank you",
+      "title": "Your order has been sent",
+      "message": "Order #{number} was received and we are already working on it. We will contact you at {email} to confirm the delivery.",
+      "continueShopping": "Continue shopping"
+    }
+  },
+  "AdminPromos": {
+    "eyebrow": "Admin",
+    "title": "Promo codes",
+    "count": "{count, plural, =1 {1 code} other {# codes}}",
+    "empty": "No promo codes yet",
+    "loading": "Loading promo codes...",
+    "form": {
+      "title": "New promo code",
+      "code": "Code",
+      "codePlaceholder": "SUMMER20",
+      "type": "Type",
+      "percent": "Percent (%)",
+      "amount": "Amount (€)",
+      "value": "Value",
+      "create": "Create code",
+      "creating": "Creating...",
+      "created": "Promo code created",
+      "exists": "A code with this name already exists",
+      "error": "Could not create the code"
+    },
+    "list": {
+      "code": "Code",
+      "discount": "Discount",
+      "used": "Used",
+      "usedTimes": "{count, plural, =1 {1 time} other {# times}}",
+      "delete": "Delete",
+      "deleted": "Promo code deleted",
+      "deleteError": "Could not delete the code"
+    }
+  },
+  "AdminOrders": {
+    "eyebrow": "Admin",
+    "title": "Orders",
+    "count": "{count, plural, =1 {1 order} other {# orders}}",
+    "empty": "No orders yet",
+    "loading": "Loading orders...",
+    "cod": "Cash on delivery",
+    "note": "Note",
+    "discount": "Discount",
+    "items": "{count, plural, =1 {1 item} other {# items}}",
+    "status": {
+      "PENDING": "Pending",
+      "DONE": "Done",
+      "CANCELLED": "Cancelled",
+      "RETURNED": "Returned"
+    },
+    "deliveryType": {
+      "ADDRESS": "To address",
+      "SPEEDY_OFFICE": "Speedy office",
+      "ECONT_OFFICE": "Econt office"
+    },
+    "actions": {
+      "markDone": "Mark done",
+      "cancel": "Cancel order",
+      "markReturned": "Mark returned",
+      "restockHint": "Stock is restored automatically",
+      "updated": "Order updated",
+      "error": "Could not update order"
+    }
   }
 }
