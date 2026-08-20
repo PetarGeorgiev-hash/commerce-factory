@@ -13,10 +13,16 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ROUTES } from "@/lib/constants/routes";
 import { useTranslations } from "next-intl";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { toast } from "sonner";
 
-const HamburgerMenu = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+const HamburgerMenu = ({
+  isAuthenticated,
+  isAdmin,
+}: {
+  isAuthenticated: boolean;
+  isAdmin: boolean;
+}) => {
   const t = useTranslations("Navbar");
   const tUser = useTranslations("Navbar.UserDropdown");
 
@@ -33,7 +39,11 @@ const HamburgerMenu = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="cursor-pointer md:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="cursor-pointer md:hidden"
+        >
           <Menu className="size-5" />
         </Button>
       </DropdownMenuTrigger>
@@ -49,6 +59,11 @@ const HamburgerMenu = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
         {isAuthenticated ? (
           <>
+            {isAdmin && (
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link href={ROUTES.ADMIN}>{t("admin")}</Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem asChild className="cursor-pointer">
               <Link href={ROUTES.ACCOUNT}>{tUser("account")}</Link>
             </DropdownMenuItem>
@@ -58,10 +73,7 @@ const HamburgerMenu = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
             <DropdownMenuItem asChild className="cursor-pointer">
               <Link href={ROUTES.SETTINGS}>{tUser("settings")}</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={handleLogout}
-            >
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               {tUser("logout")}
             </DropdownMenuItem>
           </>

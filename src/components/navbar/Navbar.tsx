@@ -27,7 +27,10 @@ const Navbar = () => {
       <div className="relative flex h-16 items-center justify-between px-4 lg:px-8">
         {/* Left — menu (mobile) + primary nav (desktop) */}
         <div className="flex flex-1 items-center gap-6">
-          <HamburgerMenu isAuthenticated={!!isAuthenticated} />
+          <HamburgerMenu
+            isAuthenticated={!!isAuthenticated}
+            isAdmin={isAdmin}
+          />
           <PageNavigation />
         </div>
 
